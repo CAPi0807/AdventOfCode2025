@@ -17,7 +17,7 @@ public class Main {
             long suma = Arrays.stream(content.split(","))
                     .map(range -> range.split("-"))
                     .flatMapToLong(parts -> { // Usamos flatMapToLong
-                        // Parseamos como Long en lugar de Integer
+                        // Lo tratamos como Long en lugar de Integer, porque los números son muy grandes
                         long start = Long.parseLong(parts[0]);
                         long end = Long.parseLong(parts[1]);
 
