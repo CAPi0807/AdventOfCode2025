@@ -1,4 +1,4 @@
-package software.aoc.day08.a;
+package software.aoc.day08.b;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,19 +7,14 @@ import java.util.List;
 
 public class Main {
 
-    private static final int MAX_CONNECTIONS_TO_ATTEMPT = 1000;
-
     public static void main(String[] args) throws IOException {
 
         Path inputPath = Path.of("src/main/resources/Day08/Coordinates.txt");
         List<String> lines = Files.readAllLines(inputPath);
 
-        // Instanciamos el solucionador
         CircuitSolver solver = new CircuitSolver();
+        long result = solver.solveFullCircuit(lines);
 
-        // Ejecutamos la lógica pasando el límite de 1000 conexiones
-        long result = solver.solve(lines, MAX_CONNECTIONS_TO_ATTEMPT);
-
-        System.out.println("El tamaño multiplicado de los 3 circuitos más grandes es: " + result);
+        System.out.println("Resultado (X1 * X2 de la última conexión): " + result);
     }
 }
