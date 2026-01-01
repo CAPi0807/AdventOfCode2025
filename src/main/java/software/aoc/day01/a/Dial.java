@@ -1,35 +1,29 @@
 package software.aoc.day01.a;
 
-import java.util.List;
+public final class Dial {
+    private final int position;
 
-public class Dial {
-    private int position;
-
-    public Dial(int start) {
-        this.position = start;
+    public Dial(int position) {
+        this.position = position;
     }
 
-    public int applyOrders(List<String> orders) {
-        return orders.stream()
-                .mapToInt(this::applySingleOrder)
-                .sum();
+    public int position() {
+        return position;
     }
 
-    private int applySingleOrder(String order) {
-        int value = Integer.parseInt(order.substring(1));
-        char dir = order.charAt(0);
+    /**
+     * Aplica una instrucción y devuelve un nuevo estado del Dial.
+     */
+    public Dial move(Instruction instruction) {
+        int newPos = instruction.direction()
+                .calculateNewPosition(this.position, instruction.amount());
+        return new Dial(newPos);
+    }
 
-        position = switch (dir) {
-            case 'L' -> (position - value + 100) % 100;
-            case 'R' -> (position + value) % 100;
-            default -> throw new IllegalArgumentException("Orden inválida: " + order);
-        };
-
-        if (position == 0) {
-            return 1;
-        } else {
-            return 0;
-        }
+    /**
+     * Lógica de negocio específica: Evalúa si la posición actual contribuye a la contraseña.
+     */
+    public int calculateScore() {
+        return (this.position == 0) ? 1 : 0;
     }
 }
-
