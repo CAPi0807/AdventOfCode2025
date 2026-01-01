@@ -8,20 +8,21 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        // 1. Dependencias
+        InstructionParser parser = new InstructionParser();
+        PasswordServiceB service = new PasswordServiceB();
 
-        List<String> orders = Files.readAllLines(
-                Path.of("src/main/resources/Day01/Orders.txt")
-        );
+        // 2. IO
+        Path path = Path.of("src/main/resources/Day01/Orders.txt");
+        List<String> rawLines = Files.readAllLines(path);
 
-        DialB dial = new DialB(50);
+        // 3. Dominio
+        List<Instruction> instructions = parser.parseAll(rawLines);
 
-        int password = dial.applyOrdersB(
-                orders.stream()
-                        .map(String::trim)
-                        .filter(l -> !l.isEmpty())
-                        .toList()
-        );
+        // 4. Lógica
+        int password = service.calculatePassword(50, instructions);
 
+        // 5. Salida
         System.out.println("Contraseña = " + password);
     }
 }
