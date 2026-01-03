@@ -1,7 +1,6 @@
 package Day01Test.a;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import software.aoc.day01.a.*;
 
 import java.io.IOException;
@@ -9,9 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-class DialTest {
+class Test {
 
-    @Test
+    @org.junit.jupiter.api.Test
     void testRotationLogicLeft() {
         // Dado un dial en 50
         Dial dial = new Dial(50);
@@ -25,7 +24,7 @@ class DialTest {
         Assertions.assertEquals(1, nextDial.calculateScore());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void testRotationLogicRight() {
         // Dado un dial en 90
         Dial dial = new Dial(90);
@@ -39,7 +38,7 @@ class DialTest {
         Assertions.assertEquals(0, nextDial.calculateScore());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void testIntegrationWithFile() throws IOException {
         // Setup
         InstructionParser parser = new InstructionParser();
@@ -56,8 +55,7 @@ class DialTest {
         int result = service.calculatePassword(50, instructions);
 
         // Verificación básica: El resultado debe ser un número positivo (sanity check)
-        // Nota: Si conociéramos el resultado exacto ("Golden Master"), lo pondríamos aquí.
         System.out.println("Test Integration Result: " + result);
-        Assertions.assertTrue(result >= 0, "El resultado no puede ser negativo");
+        Assertions.assertEquals(3, result, "El resultado debe ser 3");
     }
 }

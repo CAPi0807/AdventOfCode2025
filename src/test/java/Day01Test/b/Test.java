@@ -1,7 +1,6 @@
 package Day01Test.b;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import software.aoc.day01.b.*;
 
 import java.io.IOException;
@@ -11,7 +10,7 @@ import java.util.List;
 
 class Test {
 
-    @Test
+    @org.junit.jupiter.api.Test
     void testRightTurnHits() {
         // Caso: Estamos en 90, sumamos 20. Total recorrido absoluto = 110.
         // 110 / 100 = 1 hit. Nueva pos: 10.
@@ -24,7 +23,7 @@ class Test {
         Assertions.assertEquals(1, result.hitsGenerated());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void testLeftTurnNoHit() {
         // Caso: Estamos en 10, restamos 5. No llegamos a 0.
         Dial dial = new Dial(10);
@@ -36,7 +35,7 @@ class Test {
         Assertions.assertEquals(0, result.hitsGenerated());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void testLeftTurnExactHit() {
         // Caso: Estamos en 10, restamos 10. Llegamos a 0 exacto.
         // distToZero = 10. value = 10. hits = 1 + (10-10)/100 = 1.
@@ -49,7 +48,7 @@ class Test {
         Assertions.assertEquals(1, result.hitsGenerated());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void testLeftTurnMultipleHits() {
         // Caso: Estamos en 10, restamos 110.
         // Toca 0 (gasta 10). Quedan 100. Da una vuelta completa extra. Total 2 hits.
@@ -63,7 +62,7 @@ class Test {
         Assertions.assertEquals(2, result.hitsGenerated());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void testIntegrationFromFile() throws IOException {
         InstructionParser parser = new InstructionParser();
         PasswordServiceB service = new PasswordServiceB();
@@ -76,6 +75,6 @@ class Test {
         int result = service.calculatePassword(50, instructions);
 
         System.out.println("Integration Test Result B: " + result);
-        Assertions.assertTrue(result >= 0);
+        Assertions.assertEquals(6, result, "El resultado debe ser 6");
     }
 }

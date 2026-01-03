@@ -3,36 +3,33 @@ package software.aoc.day02.a;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.stream.LongStream;
+import java.util.List;
 
 public class Main {
 
-    private static final String FILE_PATH = "src/main/resources/Day02/Ranges.txt";
-
     public static void main(String[] args) {
         try {
-            String content = Files.readString(Path.of(FILE_PATH)).trim();
+            // 1. Configuración (Wiring)
+            RangeParser parser = new RangeParser();
+            NumberPredicate predicate = new RepetitiveNumberPredicate();
+            RangeSumService service = new RangeSumService(predicate);
 
-            long suma = Arrays.stream(content.split(","))
-                    .map(range -> range.split("-"))
-                    .flatMapToLong(parts -> { // Usamos flatMapToLong
-                        // Lo tratamos como Long en lugar de Integer, porque los números son muy grandes
-                        long start = Long.parseLong(parts[0]);
-                        long end = Long.parseLong(parts[1]);
+            // 2. IO
+            String content = Files.readString(Path.of("src/main/resources/Day02/Ranges.txt"));
 
-                        // Generamos un LongStream
-                        return LongStream.rangeClosed(Math.min(start, end), Math.max(start, end));
-                    })
-                    .filter(ID_detector::isRepetitive)
-                    .distinct()
-                    .sorted()
-                    .sum();
-            System.out.println(suma);
+            // 3. Parsing
+            List<NumericRange> ranges = parser.parse(content);
+
+            // 4. Ejecución
+            long result = service.calculateUniqueSum(ranges);
+
+            // 5. Salida
+            System.out.println(result);
+
         } catch (IOException e) {
-            System.err.println("Error leyendo el archivo: " + e.getMessage());
+            System.err.println("Error de lectura: " + e.getMessage());
         } catch (NumberFormatException e) {
-            System.err.println("Error: El número es demasiado grande o tiene formato inválido: " + e.getMessage());
+            System.err.println("Error de formato en los números: " + e.getMessage());
         }
     }
 }

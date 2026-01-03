@@ -3,36 +3,34 @@ package software.aoc.day02.b;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.stream.LongStream;
+import java.util.List;
 
 public class Main {
 
-    private static final String FILE_PATH = "src/main/resources/Day02/Ranges.txt";
-
     public static void main(String[] args) {
         try {
-            String content = Files.readString(Path.of(FILE_PATH)).trim();
+            // 1. Inyección de dependencias
+            // Aquí inyectamos la implementación 'PatternRepetitivePredicate' (Lógica Parte B)
+            NumberPredicate predicate = new PatternRepetitivePredicate();
 
-            long suma = Arrays.stream(content.split(","))
-                    .map(range -> range.split("-"))
-                    .flatMapToLong(parts -> { // Usamos flatMapToLong
-                        // Parseamos como Long en lugar de Integer
-                        long start = Long.parseLong(parts[0]);
-                        long end = Long.parseLong(parts[1]);
+            RangeParser parser = new RangeParser();
+            RangeSumService service = new RangeSumService(predicate);
 
-                        // Generamos un LongStream
-                        return LongStream.rangeClosed(Math.min(start, end), Math.max(start, end));
-                    })
-                    .filter(ID_detector::isRepetitive)
-                    .distinct()
-                    .sorted()
-                    .sum();
-            System.out.println(suma);
+            // 2. Lectura
+            Path path = Path.of("src/main/resources/Day02/Ranges.txt");
+            String content = Files.readString(path);
+
+            // 3. Proceso
+            List<NumericRange> ranges = parser.parse(content);
+            long result = service.calculateUniqueSum(ranges);
+
+            // 4. Salida
+            System.out.println(result);
+
         } catch (IOException e) {
-            System.err.println("Error leyendo el archivo: " + e.getMessage());
+            System.err.println("Error IO: " + e.getMessage());
         } catch (NumberFormatException e) {
-            System.err.println("Error: El número es demasiado grande o tiene formato inválido: " + e.getMessage());
+            System.err.println("Error formato: " + e.getMessage());
         }
     }
 }
