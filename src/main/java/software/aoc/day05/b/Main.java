@@ -8,19 +8,22 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        // 1. IO
+        Path path = Path.of("src/main/resources/Day05/ID_ranges.txt");
+        List<String> lines = Files.readAllLines(path);
 
-        List<String> lines = Files.readAllLines(
-                Path.of("src/main/resources/Day05/ID_ranges.txt")
-        );
+        // 2. Configuración
+        RangeParser parser = new RangeParser();
+        RangeMerger merger = new RangeMerger();
+        AvailabilityService service = new AvailabilityService(merger);
 
-        IDChecker checker = new IDChecker();
+        // 3. Conversión
+        List<NumericRange> rawRanges = parser.parse(lines);
 
-        long total = checker.countValidIDsInRanges(
-                lines.stream()
-                        .filter(l -> !l.isBlank())
-                        .toList()
-        );
+        // 4. Ejecución
+        long total = service.calculateTotalAvailableIDs(rawRanges);
 
+        // 5. Salida
         System.out.println("Total valid IDs available: " + total);
     }
 }

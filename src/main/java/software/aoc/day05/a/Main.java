@@ -8,22 +8,22 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        // 1. IO
+        Path path = Path.of("src/main/resources/Day05/IDs.txt");
+        List<String> lines = Files.readAllLines(path);
 
-        List<String> lines = Files.readAllLines(
-                Path.of("src/main/resources/Day05/IDs.txt")
-        );
+        // 2. Parsing y Construcción
+        InputParser parser = new InputParser();
+        InputData data = parser.parse(lines);
 
-        // Separación por línea vacía
-        int separatorIndex = lines.indexOf("");
+        // 3. Configuración de Estrategia
+        ValidationPolicy policy = new AllowedRangesPolicy(data.ranges());
+        ProductService service = new ProductService();
 
-        List<String> ranges = lines.subList(0, separatorIndex);
-        List<String> ids = lines.subList(separatorIndex + 1, lines.size());
+        // 4. Ejecución
+        long totalValid = service.countValidProducts(data.ids(), policy);
 
-        IDChecker checker = new IDChecker();
-        checker.loadRanges(ranges);
-
-        long totalValid = checker.countValidIDs(ids);
-
+        // 5. Salida
         System.out.println("Total valid products: " + totalValid);
     }
 }
