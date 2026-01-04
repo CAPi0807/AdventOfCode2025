@@ -8,15 +8,19 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        // 1. Lectura
+        Path path = Path.of("src/main/resources/Day04/Rolls.txt");
+        List<String> lines = Files.readAllLines(path);
 
-        List<String> grid = Files.readAllLines(
-                Path.of("src/main/resources/Day04/Rolls.txt")
-        );
+        // 2. Construcción de Dominio
+        Grid warehouse = new Grid(lines);
+        SelectionRule rule = new RollSelectionRule();
+        WarehouseService service = new WarehouseService(rule);
 
-        Roll_checker checker = new Roll_checker(grid);
+        // 3. Ejecución
+        long count = service.countSafeRolls(warehouse);
 
-        long selectableRolls = checker.countSelectableRolls();
-
-        System.out.println("Rollos seleccionables = " + selectableRolls);
+        // 4. Salida
+        System.out.println("Rollos seleccionables = " + count);
     }
 }

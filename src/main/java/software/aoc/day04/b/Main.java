@@ -8,18 +8,21 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        // 1. Configuración
+        Path path = Path.of("src/main/resources/Day04/Rolls.txt");
+        List<String> lines = Files.readAllLines(path);
 
-        List<String> grid = Files.readAllLines(
-                Path.of("src/main/resources/Day04/Rolls.txt")
-        );
+        // 2. Construcción de objetos
+        Grid initialGrid = new Grid(lines);
+        SelectionRule rule = new UnstableRollRule();
+        WarehouseSimulator simulator = new WarehouseSimulator(rule);
 
-        Roll_checker checker = new Roll_checker(grid);
+        // 3. Ejecución
+        SimulationResult result = simulator.runUntilStable(initialGrid);
 
-        long removed = checker.removeUntilStable();
-
-        System.out.println("Rollos eliminados = " + removed);
+        // 4. Salida
+        System.out.println("Rollos eliminados = " + result.removedCount());
         System.out.println("Grid final:");
-
-        checker.getGrid().forEach(System.out::println);
+        result.finalGrid().print().forEach(System.out::println);
     }
 }
