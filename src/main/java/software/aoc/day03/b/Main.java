@@ -8,16 +8,20 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        // 1. Configuración
+        BatteryParser parser = new BatteryParser();
+        JoltageStrategy strategy = new GreedySelectionStrategy();
+        JoltageService service = new JoltageService(strategy);
 
-        // 1. Leemos las ristras de números del archivo
-        List<String> batteries = Files.readAllLines(
-                Path.of("src/main/resources/Day03/Batteries.txt")
-        );
+        // 2. IO
+        Path path = Path.of("src/main/resources/Day03/Batteries.txt");
+        List<String> rawLines = Files.readAllLines(path);
 
-        // 2. Calculamos el total de joltage
-        long TotalJoltage = Joltage_Meter.JoltajeDeterminator(batteries);
+        // 3. Proceso
+        List<Battery> batteries = parser.parse(rawLines);
+        long totalJoltage = service.calculateTotalLoad(batteries);
 
-        // 3. Mostramos el resultado
-        System.out.println("Total Joltage = " + TotalJoltage);
+        // 4. Salida
+        System.out.println("Total Joltage = " + totalJoltage);
     }
 }
