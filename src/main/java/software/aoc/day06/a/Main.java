@@ -8,14 +8,19 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        // 1. IO
+        Path path = Path.of("src/main/resources/Day06/Problems.txt");
+        List<String> lines = Files.readAllLines(path);
 
-        List<String> lines = Files.readAllLines(
-                Path.of("src/main/resources/Day06/Problems.txt")
-        );
+        // 2. Parsing
+        ProblemParser parser = new ProblemParser();
+        ProblemSchema schema = parser.parse(lines);
 
-        ProblemSolver solver = new ProblemSolver();
-        long result = solver.solve(lines);
+        // 3. Lógica
+        ColumnCalculationService solver = new ColumnCalculationService();
+        long result = solver.solve(schema);
 
+        // 4. Salida
         System.out.println("Resultado total = " + result);
     }
 }

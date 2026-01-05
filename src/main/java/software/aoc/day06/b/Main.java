@@ -8,11 +8,8 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-
-        // Asegúrate de que el archivo existe en esta ruta
-        List<String> lines = Files.readAllLines(
-                Path.of("src/main/resources/Day06/Problems.txt")
-        );
+        Path path = Path.of("src/main/resources/Day06/Problems.txt");
+        List<String> lines = Files.readAllLines(path);
 
         ProblemSolver solver = new ProblemSolver();
         long result = solver.solve(lines);
