@@ -8,19 +8,19 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        // 1. IO
+        Path inputPath = Path.of("src/main/resources/Day07/Input.txt");
+        List<String> lines = Files.readAllLines(inputPath);
 
-        List<String> lines = Files.readAllLines(
-                Path.of("src/main/resources/Day07/Input.txt")
-        );
+        // 2. Wiring
+        Grid grid = new Grid(lines);
+        InteractionRule physics = new InteractionRule();
+        PathCalculatorService calculator = new PathCalculatorService(physics);
 
-        // Reutilizamos el GridMap (Principio DRY - Don't Repeat Yourself)
-        GridMap map = new GridMap(lines);
+        // 3. Ejecución
+        long totalPaths = calculator.calculateTotalPaths(grid);
 
-        // Usamos el nuevo PathCounter para la lógica de la parte B
-        PathCounter counter = new PathCounter(map);
-
-        long totalPaths = counter.calculateTotalPaths();
-
+        // 4. Salida
         System.out.println("Total de caminos posibles: " + totalPaths);
     }
 }

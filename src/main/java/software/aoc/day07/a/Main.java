@@ -8,18 +8,19 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-
-        // 1. Lectura de Recursos (I/O separado de la lógica)
+        // 1. I/O
         Path inputPath = Path.of("src/main/resources/Day07/Input.txt");
         List<String> lines = Files.readAllLines(inputPath);
 
-        // 2. Instanciación del Modelo y Solucionador (Inyección de dependencias simple)
-        GridMap map = new GridMap(lines);
-        RayTracer tracer = new RayTracer(map);
+        // 2. Wiring (Inyección)
+        Grid map = new Grid(lines);
+        RayPhysics physics = new RayPhysics();
+        BeamSimulator simulator = new BeamSimulator(map, physics);
 
         // 3. Ejecución
-        long totalSplits = tracer.countSplits();
+        long totalSplits = simulator.simulateAndCountSplits();
 
+        // 4. Salida
         System.out.println("El rayo se dividió un total de: " + totalSplits + " veces.");
     }
 }
