@@ -2,6 +2,10 @@ package Day03Test.b;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import software.aoc.day03.a.Battery;
+import software.aoc.day03.a.BatteryParser;
+import software.aoc.day03.a.JoltageService;
+import software.aoc.day03.a.JoltageStrategy;
 import software.aoc.day03.b.*;
 
 import java.io.IOException;

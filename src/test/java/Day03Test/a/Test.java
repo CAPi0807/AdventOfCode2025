@@ -45,7 +45,7 @@ class JoltageTest {
 
         // Ejecución
         List<Battery> batteries = parser.parse(rawLines);
-        int result = service.calculateTotalLoad(batteries);
+        long result = service.calculateTotalLoad(batteries);
 
         // Verificación
         System.out.println("Integration Result Day03: " + result);

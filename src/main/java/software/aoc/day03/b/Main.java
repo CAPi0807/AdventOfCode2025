@@ -1,5 +1,10 @@
 package software.aoc.day03.b;
 
+import software.aoc.day03.a.Battery;
+import software.aoc.day03.a.BatteryParser;
+import software.aoc.day03.a.JoltageService;
+import software.aoc.day03.a.JoltageStrategy;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

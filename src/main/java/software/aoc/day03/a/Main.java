@@ -21,7 +21,7 @@ public class Main {
         List<Battery> batteries = parser.parse(rawLines);
 
         // 4. Ejecución
-        int totalJoltage = service.calculateTotalLoad(batteries);
+        Long totalJoltage = service.calculateTotalLoad(batteries);
 
         // 5. Salida
         System.out.println("Total Joltage = " + totalJoltage);

@@ -1,5 +1,8 @@
 package software.aoc.day03.b;
 
+import software.aoc.day03.a.Battery;
+import software.aoc.day03.a.JoltageStrategy;
+
 public class GreedySelectionStrategy implements JoltageStrategy {
 
     private static final int TARGET_LENGTH = 12;

@@ -3,7 +3,7 @@ package software.aoc.day03.a;
 public class HighestOrderedPairStrategy implements JoltageStrategy {
 
     @Override
-    public int calculate(Battery battery) {
+    public long calculate(Battery battery) {
         String s = battery.sequence();
         int max = 0;
         int length = s.length();

@@ -10,9 +10,9 @@ public class JoltageService {
         this.strategy = strategy;
     }
 
-    public int calculateTotalLoad(List<Battery> batteries) {
+    public Long calculateTotalLoad(List<Battery> batteries) {
         return batteries.stream()
-                .mapToInt(strategy::calculate)
+                .mapToLong(strategy::calculate)
                 .sum();
     }
 }
