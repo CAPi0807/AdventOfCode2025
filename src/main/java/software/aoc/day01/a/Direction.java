@@ -1,21 +1,8 @@
 package software.aoc.day01.a;
 
 public enum Direction {
-    LEFT {
-        @Override
-        public int calculateNewPosition(int currentPosition, int amount) {
-            // (pos - val + 100) % 100 asegura el ciclo positivo
-            return (currentPosition - amount + 100) % 100;
-        }
-    },
-    RIGHT {
-        @Override
-        public int calculateNewPosition(int currentPosition, int amount) {
-            return (currentPosition + amount) % 100;
-        }
-    };
-
-    public abstract int calculateNewPosition(int currentPosition, int amount);
+    LEFT,
+    RIGHT;
 
     public static Direction fromChar(char c) {
         return switch (c) {
@@ -23,5 +10,15 @@ public enum Direction {
             case 'R' -> RIGHT;
             default -> throw new IllegalArgumentException("Unknown direction: " + c);
         };
+    }
+
+    // Puedes dejar calculateNewPosition aquí si quieres que A lo use,
+    // pero B usará su propia lógica.
+    public int calculateNewPosition(int currentPosition, int amount) {
+        if (this == LEFT) {
+            return Math.floorMod(currentPosition - amount, 100);
+        } else {
+            return (currentPosition + amount) % 100;
+        }
     }
 }

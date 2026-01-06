@@ -1,5 +1,7 @@
 package software.aoc.day01.b;
 
+import software.aoc.day01.a.Instruction;
+
 import java.util.List;
 
 public class PasswordServiceB {

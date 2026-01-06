@@ -1,6 +1,9 @@
 package Day01Test.b;
 
 import org.junit.jupiter.api.Assertions;
+import software.aoc.day01.a.Direction;
+import software.aoc.day01.a.Instruction;
+import software.aoc.day01.a.InstructionParser;
 import software.aoc.day01.b.*;
 
 import java.io.IOException;
