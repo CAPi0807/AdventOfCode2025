@@ -7,19 +7,22 @@ import java.util.List;
 
 public class Main {
 
-    private static final int MAX_CONNECTIONS_TO_ATTEMPT = 1000;
+    private static final int MAX_CONNECTIONS = 1000;
 
     public static void main(String[] args) throws IOException {
-
+        // 1. IO
         Path inputPath = Path.of("src/main/resources/Day08/Coordinates.txt");
         List<String> lines = Files.readAllLines(inputPath);
 
-        // Instanciamos el solucionador
-        CircuitSolver solver = new CircuitSolver();
+        // 2. Parsing
+        CoordinateParser parser = new CoordinateParser();
+        List<Point3D> points = parser.parse(lines);
 
-        // Ejecutamos la lógica pasando el límite de 1000 conexiones
-        long result = solver.solve(lines, MAX_CONNECTIONS_TO_ATTEMPT);
+        // 3. Lógica
+        NetworkService service = new NetworkService(new EuclideanStrategy());
+        long result = service.calculateCircuitScore(points, MAX_CONNECTIONS);
 
+        // 4. Salida
         System.out.println("El tamaño multiplicado de los 3 circuitos más grandes es: " + result);
     }
 }

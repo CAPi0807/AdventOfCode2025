@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public class DisjointSet {
-
     private final int[] parent;
     private final int[] size;
 
@@ -14,17 +13,14 @@ public class DisjointSet {
         parent = new int[n];
         size = new int[n];
         for (int i = 0; i < n; i++) {
-            parent[i] = i; // Cada nodo es su propio padre al inicio
-            size[i] = 1;   // Cada circuito tiene tamaño 1 al inicio
+            parent[i] = i;
+            size[i] = 1;
         }
     }
 
     public int find(int i) {
-        if (parent[i] == i) {
-            return i;
-        }
-        // Path compression: apunta directamente al nodo raíz para aplanar el árbol
-        parent[i] = find(parent[i]);
+        if (parent[i] == i) return i;
+        parent[i] = find(parent[i]); // Path compression
         return parent[i];
     }
 
@@ -33,7 +29,7 @@ public class DisjointSet {
         int rootB = find(j);
 
         if (rootA != rootB) {
-            // Unimos el conjunto más pequeño al más grande (optimización por tamaño)
+            // Optimización por tamaño
             if (size[rootA] < size[rootB]) {
                 parent[rootA] = rootB;
                 size[rootB] += size[rootA];
@@ -42,20 +38,14 @@ public class DisjointSet {
                 size[rootA] += size[rootB];
             }
         }
-        // Si rootA == rootB, ya están conectados ("no hacemos nada"),
-        // tal como pide el problema.
     }
 
     public List<Integer> getComponentSizes() {
         Map<Integer, Integer> rootSizes = new HashMap<>();
-
         for (int i = 0; i < parent.length; i++) {
             int root = find(i);
-            // Solo nos interesa el tamaño almacenado en la raíz
-            // Ojo: size[] es correcto solo en la raíz del conjunto
             rootSizes.put(root, size[root]);
         }
-
         return new ArrayList<>(rootSizes.values());
     }
 }
