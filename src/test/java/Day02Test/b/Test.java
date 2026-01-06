@@ -1,6 +1,9 @@
 package Day02Test.b; // Mismo paquete de test solicitado
 
 import org.junit.jupiter.api.Assertions;
+import software.aoc.day02.a.NumberPredicate;
+import software.aoc.day02.a.NumericRange;
+import software.aoc.day02.a.RangeParser;
 import software.aoc.day02.b.*;
 
 import java.io.IOException;

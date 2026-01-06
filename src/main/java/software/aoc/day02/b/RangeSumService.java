@@ -1,5 +1,8 @@
 package software.aoc.day02.b;
 
+import software.aoc.day02.a.NumberPredicate;
+import software.aoc.day02.a.NumericRange;
+
 import java.util.List;
 
 public class RangeSumService {

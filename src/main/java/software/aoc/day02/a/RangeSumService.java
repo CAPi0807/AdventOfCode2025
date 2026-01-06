@@ -16,7 +16,6 @@ public class RangeSumService {
                 .flatMapToLong(NumericRange::stream) // Expansión eficiente a primitivos
                 .filter(validator::test)             // Filtrado polimórfico
                 .distinct()                          // Eliminar duplicados
-                // .sorted() -> Eliminado porque la suma es conmutativa y sorted es costoso
                 .sum();
     }
 }

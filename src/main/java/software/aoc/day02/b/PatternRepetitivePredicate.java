@@ -1,5 +1,7 @@
 package software.aoc.day02.b;
 
+import software.aoc.day02.a.NumberPredicate;
+
 import java.util.stream.IntStream;
 
 public class PatternRepetitivePredicate implements NumberPredicate {

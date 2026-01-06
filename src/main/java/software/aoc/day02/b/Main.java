@@ -1,5 +1,9 @@
 package software.aoc.day02.b;
 
+import software.aoc.day02.a.NumberPredicate;
+import software.aoc.day02.a.NumericRange;
+import software.aoc.day02.a.RangeParser;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
