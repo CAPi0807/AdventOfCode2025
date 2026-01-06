@@ -9,38 +9,42 @@ import java.util.stream.Stream;
 
 public class MachineParser {
 
-    // Regex para capturar: [luces], (botones), {voltaje ignorado}
-    private static final Pattern LIGHTS_PATTERN = Pattern.compile("\\[([.#]+)]");
-    private static final Pattern BUTTON_PATTERN = Pattern.compile("\\(([,\\d]+)\\)");
+    private static final Pattern LIGHTS = Pattern.compile("\\[([.#]+)]");
+    private static final Pattern BUTTONS = Pattern.compile("\\(([,\\d]+)\\)");
+    private static final Pattern VOLTAGE = Pattern.compile("\\{([,\\d]+)}");
 
     public Machine parse(String line) {
-        List<Integer> lights = parseLights(line);
-        List<List<Integer>> buttons = parseButtons(line);
-        return new Machine(lights, buttons);
+        return new Machine(
+                parseSequence(line, LIGHTS, true),
+                parseButtons(line),
+                parseSequence(line, VOLTAGE, false)
+        );
     }
 
-    private List<Integer> parseLights(String line) {
-        Matcher matcher = LIGHTS_PATTERN.matcher(line);
-        if (matcher.find()) {
-            String content = matcher.group(1);
-            return content.chars()
-                    .mapToObj(c -> c == '#' ? 1 : 0)
-                    .collect(Collectors.toList());
+    private List<Integer> parseSequence(String line, Pattern pattern, boolean mapChars) {
+        Matcher m = pattern.matcher(line);
+        if (m.find()) {
+            String content = m.group(1);
+            if (mapChars) { // Para [.##.]
+                return content.chars().mapToObj(c -> c == '#' ? 1 : 0).toList();
+            } else { // Para {3,5,4}
+                return Stream.of(content.split(","))
+                        .map(String::trim)
+                        .map(Integer::parseInt)
+                        .toList();
+            }
         }
-        throw new IllegalArgumentException("No lights found in: " + line);
+        return List.of();
     }
 
     private List<List<Integer>> parseButtons(String line) {
-        Matcher matcher = BUTTON_PATTERN.matcher(line);
+        Matcher m = BUTTONS.matcher(line);
         List<List<Integer>> buttons = new ArrayList<>();
-
-        while (matcher.find()) {
-            String content = matcher.group(1);
-            List<Integer> indices = Stream.of(content.split(","))
+        while (m.find()) {
+            buttons.add(Stream.of(m.group(1).split(","))
                     .map(String::trim)
                     .map(Integer::parseInt)
-                    .collect(Collectors.toList());
-            buttons.add(indices);
+                    .toList());
         }
         return buttons;
     }

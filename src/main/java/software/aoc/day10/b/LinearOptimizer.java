@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Resuelve sistemas Ax=b sobre enteros no negativos minimizando sum(x).
- * Versión corregida para rangos de búsqueda dinámicos.
- */
 public class LinearOptimizer {
 
     private static final double EPSILON = 1e-9;

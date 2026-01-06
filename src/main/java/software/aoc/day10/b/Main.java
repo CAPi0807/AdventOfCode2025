@@ -5,6 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import software.aoc.day10.a.Machine;
+import software.aoc.day10.a.MachineParser;
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
@@ -26,5 +29,3 @@ public class Main {
         }
     }
 }
-
-//18898 es muy baja

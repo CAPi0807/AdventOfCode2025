@@ -1,6 +1,7 @@
 package software.aoc.day10.b;
 
 import java.util.List;
+import software.aoc.day10.a.Machine;
 
 public class Day10BSolver {
 
