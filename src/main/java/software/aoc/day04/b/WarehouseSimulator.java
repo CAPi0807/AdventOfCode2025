@@ -1,7 +1,7 @@
 package software.aoc.day04.b;
 
-import software.aoc.day04.a.Position;
-
+import software.aoc.day04.a.Grid; // Importamos de A
+import software.aoc.day04.a.Position; // Importamos de A
 import java.util.List;
 
 public class WarehouseSimulator {
@@ -17,18 +17,13 @@ public class WarehouseSimulator {
         long totalRemoved = 0;
 
         while (true) {
-            // 1. Detectar candidatos a eliminar con la regla actual
             List<Position> toRemove = rule.findMatches(currentGrid);
 
-            // 2. Condición de parada: Estabilidad (nadie se elimina)
             if (toRemove.isEmpty()) {
                 break;
             }
 
-            // 3. Acumular contador
             totalRemoved += toRemove.size();
-
-            // 4. Evolucionar estado (Crear nuevo Grid inmutable)
             currentGrid = currentGrid.without(toRemove);
         }
 

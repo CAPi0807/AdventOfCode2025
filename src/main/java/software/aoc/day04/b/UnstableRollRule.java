@@ -1,5 +1,6 @@
 package software.aoc.day04.b;
 
+import software.aoc.day04.a.Grid; // Importamos de A
 import software.aoc.day04.a.Position;
 
 import java.util.List;
@@ -17,10 +18,8 @@ public class UnstableRollRule implements SelectionRule {
     }
 
     private boolean isUnstable(Grid grid, Position p) {
-        // Solo verificamos si es un rollo
         if (grid.get(p) != ROLL) return false;
 
-        // Contamos vecinos que TAMBIÉN sean rollos
         long neighborsCount = p.neighbors().stream()
                 .filter(grid::isValid)
                 .filter(n -> grid.get(n) == ROLL)

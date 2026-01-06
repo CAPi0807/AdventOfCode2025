@@ -14,8 +14,8 @@ public class Grid {
     }
 
     public char getCell(int row, int col) {
-        if (isOutOfBounds(col)) return ' ';
-        // Validación de fila segura
+        if (isOutOfBounds(col))
+            return ' ';
         if (row < 0 || row >= height) return ' ';
         return lines.get(row).charAt(col);
     }

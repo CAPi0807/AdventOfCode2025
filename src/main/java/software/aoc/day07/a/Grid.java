@@ -15,7 +15,7 @@ public class Grid {
 
     public char getCell(int row, int col) {
         if (isOutOfBounds(row, col)) {
-            return ' '; // Valor nulo seguro
+            return ' ';
         }
         return lines.get(row).charAt(col);
     }
