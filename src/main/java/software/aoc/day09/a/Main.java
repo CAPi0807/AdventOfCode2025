@@ -8,14 +8,19 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        // 1. IO
+        Path path = Path.of("src/main/resources/Day09/Points.txt");
+        List<String> lines = Files.readAllLines(path);
 
-        List<String> lines = Files.readAllLines(
-                Path.of("src/main/resources/Day09/Points.txt")
-        );
+        // 2. Parsing
+        PointParser parser = new PointParser();
+        List<Point> points = parser.parse(lines);
 
-        RectangleSolver solver = new RectangleSolver();
-        long maxArea = solver.findLargestRectangleArea(lines);
+        // 3. Lógica (Inyección de la estrategia de fuerza bruta)
+        GeometryService service = new GeometryService(new BruteForcePairsStrategy());
+        long maxArea = service.calculateLargestRectangle(points);
 
+        // 4. Salida
         System.out.println("El área del rectángulo más grande es: " + maxArea);
     }
 }

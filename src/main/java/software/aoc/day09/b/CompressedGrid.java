@@ -1,77 +1,66 @@
 package software.aoc.day09.b;
 
+import software.aoc.day09.a.BoundingBox;
+import software.aoc.day09.a.Point;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class CompressedGrid {
-    private final long[] xCoords;
-    private final long[] yCoords;
-    private final boolean[][] solidCells; // true si la celda es parte del polígono
 
-    public CompressedGrid(List<Point> vertices) {
-        // 1. Extraer y ordenar coordenadas únicas
-        this.xCoords = vertices.stream().mapToLong(Point::x).distinct().sorted().toArray();
-        this.yCoords = vertices.stream().mapToLong(Point::y).distinct().sorted().toArray();
+    private final int[] xCoords;
+    private final int[] yCoords;
+    private final boolean[][] solidCells;
+
+    public CompressedGrid(List<Point> vertices, RayCaster rayCaster) {
+        // 1. Compresión de coordenadas (Distinct + Sorted)
+        // Nota: Usamos int[] asumiendo que caben, si el dominio A usara long, adaptaríamos aquí.
+        this.xCoords = vertices.stream().mapToInt(Point::x).distinct().sorted().toArray();
+        this.yCoords = vertices.stream().mapToInt(Point::y).distinct().sorted().toArray();
 
         int width = xCoords.length - 1;
         int height = yCoords.length - 1;
 
-        // 2. Crear grid lógico
+        // 2. Construcción de la matriz lógica
         this.solidCells = new boolean[height][width];
 
-        // 3. Rellenar grid (Pre-cálculo)
-        // Comprobamos el punto central de cada celda lógica
+        // 3. Relleno (Pre-cálculo)
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
+                // Probamos el punto central de la celda lógica
                 double midX = (xCoords[x] + xCoords[x+1]) / 2.0;
                 double midY = (yCoords[y] + yCoords[y+1]) / 2.0;
 
-                if (isPointInsidePolygon(midX, midY, vertices)) {
+                if (rayCaster.isPointInside(midX, midY, vertices)) {
                     solidCells[y][x] = true;
                 }
             }
         }
     }
 
-    /**
-     * Verifica si un rectángulo cubre SOLO celdas sólidas.
-     */
-    public boolean covers(Rectangle rect) {
-        // Encontrar los índices en el array comprimido
-        int xStartIndex = Arrays.binarySearch(xCoords, rect.minX());
-        int xEndIndex = Arrays.binarySearch(xCoords, rect.maxX());
-        int yStartIndex = Arrays.binarySearch(yCoords, rect.minY());
-        int yEndIndex = Arrays.binarySearch(yCoords, rect.maxY());
+    public boolean fullyCovers(BoundingBox box) {
+        // Helpers locales para obtener límites del BoundingBox (reutilizado de A)
+        int minX = Math.min(box.p1().x(), box.p2().x());
+        int maxX = Math.max(box.p1().x(), box.p2().x());
+        int minY = Math.min(box.p1().y(), box.p2().y());
+        int maxY = Math.max(box.p1().y(), box.p2().y());
 
-        // Si las coordenadas del rectángulo no coinciden con vértices del polígono,
-        // binarySearch devuelve negativo. Pero en este problema, los rectángulos
-        // se forman con vértices existentes, así que siempre deberían existir.
-        if (xStartIndex < 0 || xEndIndex < 0 || yStartIndex < 0 || yEndIndex < 0) return false;
+        // Búsqueda binaria sobre el eje comprimido
+        int xStart = Arrays.binarySearch(xCoords, minX);
+        int xEnd = Arrays.binarySearch(xCoords, maxX);
+        int yStart = Arrays.binarySearch(yCoords, minY);
+        int yEnd = Arrays.binarySearch(yCoords, maxY);
 
-        // Verificar todas las celdas lógicas dentro del rango
-        // Nota: iteramos hasta index - 1 porque las celdas están ENTRE las líneas
-        for (int y = yStartIndex; y < yEndIndex; y++) {
-            for (int x = xStartIndex; x < xEndIndex; x++) {
+        if (xStart < 0 || xEnd < 0 || yStart < 0 || yEnd < 0) return false;
+
+        // Verificar que todas las celdas lógicas en el rango sean sólidas
+        for (int y = yStart; y < yEnd; y++) {
+            for (int x = xStart; x < xEnd; x++) {
                 if (!solidCells[y][x]) {
-                    return false; // Encontramos un hueco -> Rectángulo inválido
+                    return false; // Hueco encontrado
                 }
             }
         }
         return true;
-    }
-
-    // Algoritmo Ray Casting estándar (adaptado para double)
-    private boolean isPointInsidePolygon(double x, double y, List<Point> vertices) {
-        boolean inside = false;
-        int n = vertices.size();
-        for (int i = 0, j = n - 1; i < n; j = i++) {
-            Point vi = vertices.get(i);
-            Point vj = vertices.get(j);
-            if (((vi.y() > y) != (vj.y() > y)) &&
-                    (x < (vj.x() - vi.x()) * (y - vi.y()) / (double)(vj.y() - vi.y()) + vi.x())) {
-                inside = !inside;
-            }
-        }
-        return inside;
     }
 }

@@ -2,6 +2,7 @@ package Day04Test.b;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import software.aoc.day04.a.Position;
 import software.aoc.day04.b.*;
 
 import java.io.IOException;

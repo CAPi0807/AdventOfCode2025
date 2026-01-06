@@ -1,28 +1,33 @@
 package software.aoc.day09.b;
 
+import software.aoc.day09.a.BoundingBox;
+import software.aoc.day09.a.Point;
+import software.aoc.day09.a.PointParser;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        InputParser parser = new InputParser();
-        RectangleSolver solver = new RectangleSolver();
 
+    public static void main(String[] args) throws IOException {
+        // 1. Reutilización de Parser de Parte A
+        PointParser parser = new PointParser();
         List<String> lines = Files.readAllLines(Path.of("src/main/resources/Day09/Points.txt"));
         List<Point> points = parser.parse(lines);
 
+        // 2. Lógica Parte B
+        ConstrainedSolver solver = new ConstrainedSolver();
+
         long start = System.currentTimeMillis();
-
-        // Obtenemos el objeto Rectangle en lugar de solo el long
-        Rectangle result = solver.solve(points);
-
+        BoundingBox result = solver.solve(points);
         long time = System.currentTimeMillis() - start;
 
+        // 3. Salida
         System.out.println("--- RESULTADOS ---");
-        System.out.println("Área máxima: " + result.area());
-        System.out.printf("Esquinas elegidas: %s y %s%n", result.p1(), result.p2());
+        System.out.println("Área máxima: " + result.calculateInclusiveArea());
+        System.out.printf("Esquinas: %s y %s%n", result.p1(), result.p2());
         System.out.println("Tiempo cálculo: " + time + "ms");
     }
 }
