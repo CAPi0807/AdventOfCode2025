@@ -3,6 +3,7 @@ package software.aoc.day02.b;
 import software.aoc.day02.a.NumberPredicate;
 import software.aoc.day02.a.NumericRange;
 import software.aoc.day02.a.RangeParser;
+import software.aoc.day02.a.RangeSumService;
 
 import java.io.IOException;
 import java.nio.file.Files;

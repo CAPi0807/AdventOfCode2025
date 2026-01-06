@@ -13,9 +13,10 @@ public class RangeSumService {
 
     public long calculateUniqueSum(List<NumericRange> ranges) {
         return ranges.stream()
-                .flatMapToLong(NumericRange::stream) // Expansión eficiente a primitivos
-                .filter(validator::test)             // Filtrado polimórfico
-                .distinct()                          // Eliminar duplicados
+                .flatMapToLong(NumericRange::stream)
+                .filter(validator::test)
+                .distinct()
+                .sorted()
                 .sum();
     }
 }
