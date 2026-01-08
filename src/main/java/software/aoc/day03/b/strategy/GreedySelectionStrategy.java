@@ -1,7 +1,7 @@
-package software.aoc.day03.b;
+package software.aoc.day03.b.strategy;
 
-import software.aoc.day03.a.Battery;
-import software.aoc.day03.a.JoltageStrategy;
+import software.aoc.day03.a.model.Battery;
+import software.aoc.day03.a.strategies.JoltageStrategy;
 
 public class GreedySelectionStrategy implements JoltageStrategy {
 

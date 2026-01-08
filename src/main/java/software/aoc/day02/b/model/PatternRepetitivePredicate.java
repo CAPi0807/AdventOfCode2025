@@ -1,6 +1,6 @@
-package software.aoc.day02.b;
+package software.aoc.day02.b.model;
 
-import software.aoc.day02.a.NumberPredicate;
+import software.aoc.day02.a.model.NumberPredicate;
 
 import java.util.stream.IntStream;
 

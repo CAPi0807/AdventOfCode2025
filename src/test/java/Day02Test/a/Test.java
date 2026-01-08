@@ -2,7 +2,11 @@ package Day02Test.a;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day02.a.*;
+import software.aoc.day02.a.model.NumberPredicate;
+import software.aoc.day02.a.model.NumericRange;
+import software.aoc.day02.a.model.RepetitiveNumberPredicate;
+import software.aoc.day02.a.parser.RangeParser;
+import software.aoc.day02.a.service.RangeSumService;
 
 import java.io.IOException;
 import java.nio.file.Files;

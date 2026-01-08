@@ -1,4 +1,6 @@
-package software.aoc.day02.a;
+package software.aoc.day02.a.parser;
+
+import software.aoc.day02.a.model.NumericRange;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package software.aoc.day03.a;
+package software.aoc.day03.a.model;
 
 public record Battery(String sequence) {
     public Battery {

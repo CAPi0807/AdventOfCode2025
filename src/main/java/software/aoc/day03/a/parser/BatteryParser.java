@@ -1,4 +1,6 @@
-package software.aoc.day03.a;
+package software.aoc.day03.a.parser;
+
+import software.aoc.day03.a.model.Battery;
 
 import java.util.List;
 

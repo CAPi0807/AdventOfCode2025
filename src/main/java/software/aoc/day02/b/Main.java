@@ -1,9 +1,10 @@
 package software.aoc.day02.b;
 
-import software.aoc.day02.a.NumberPredicate;
-import software.aoc.day02.a.NumericRange;
-import software.aoc.day02.a.RangeParser;
-import software.aoc.day02.a.RangeSumService;
+import software.aoc.day02.a.model.NumberPredicate;
+import software.aoc.day02.a.model.NumericRange;
+import software.aoc.day02.a.parser.RangeParser;
+import software.aoc.day02.a.service.RangeSumService;
+import software.aoc.day02.b.model.PatternRepetitivePredicate;
 
 import java.io.IOException;
 import java.nio.file.Files;

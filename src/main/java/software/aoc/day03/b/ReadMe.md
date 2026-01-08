@@ -1,14 +1,36 @@
-# Advent of Code Day 03 (Parte B)
+# Advent of Code - Día 03 (Parte B): Algoritmos Voraces y Escalabilidad
 
-En esta segunda parte, el problema cambia de una búsqueda local a una construcción global de una secuencia numérica.
+## 1. Introducción al Desafío
+En esta segunda parte, el objetivo evoluciona de encontrar un par de dígitos a construir el número de 12 cifras más grande posible a partir de la secuencia de la batería. Para lograrlo, hemos implementado una **estrategia de selección voraz (Greedy)**.
 
-## Patrones y Estrategias
+[cite_start]El diseño destaca por su **bajo acoplamiento** [cite: 71][cite_start], ya que el servicio encargado de procesar las baterías no ha necesitado cambios; simplemente hemos "inyectado" una nueva lógica de cálculo[cite: 91].
 
-### Strategy Pattern (`GreedySelectionStrategy`)
-La lógica para seleccionar los 12 dígitos la he implementado como una estrategia específica.
-- **Algoritmo Greedy:** Itera 12 veces (una por cada posición del número final).
-- **Ventana Deslizante Dinámica:** En cada paso, calcula el rango máximo donde puede buscar el siguiente dígito (`searchLimit`), asegurándose de dejar suficientes caracteres restantes en la cadena original para completar los 12 dígitos requeridos.
-- **Short-Circuit:** Si encuentra un '9' dentro del rango válido, lo selecciona inmediatamente y deja de buscar en esa iteración, ya que es el valor máximo posible.
+## 2. El Corazón del Algoritmo: `GreedySelectionStrategy`
+[cite_start]Este componente es una implementación de la interfaz `JoltageStrategy`. Su lógica se basa en la toma de decisiones óptimas locales para alcanzar un máximo global:
 
-### Inmutabilidad y Tipos
-- Se ha cambiado el tipo de retorno de `int` a `long` para evitar desbordamiento numérico, dado que un número de 12 dígitos excede la capacidad de un `Integer` (máx 2.147 millones vs 12 dígitos que son billones).
+- **Ventana de Búsqueda Dinámica**: El algoritmo calcula un `searchLimit` en cada iteración. [cite_start]Esto garantiza que, aunque busquemos el dígito más alto, siempre dejemos caracteres suficientes a la derecha para completar las 12 posiciones requeridas[cite: 70].
+- [cite_start]**Búsqueda Voraz**: Dentro de cada ventana, el código rastrea el carácter con el valor ASCII más alto[cite: 74].
+- **Optimización de Salida Temprana**: Si el algoritmo encuentra un '9', deja de buscar en la ventana actual inmediatamente, ya que no existe un dígito superior en base 10.
+
+
+
+## 3. Reutilización e Inversión de Control
+[cite_start]Gracias a que nuestro sistema depende de **abstracciones** en lugar de clases concretas[cite: 91], la integración de la Parte B ha sido inmediata:
+- [cite_start]Utilizamos el `BatteryParser` original para transformar el texto[cite: 96].
+- [cite_start]El `JoltageService` sigue siendo el orquestador que mapea y suma los resultados.
+- [cite_start]La entidad `Battery` permanece inmutable, sirviendo como un contenedor de datos fiable y sin efectos secundarios[cite: 64, 74].
+
+## 4. Evolución Técnica y Tipado
+Un aspecto crítico en esta fase ha sido el manejo de la **capacidad de datos**:
+- **De `int` a `long`**: Dado que el resultado es un número de 12 dígitos, sobrepasamos los 2.147 millones que permite un entero estándar. [cite_start]El uso de `long` asegura la precisión y evita errores de desbordamiento[cite: 74].
+- [cite_start]**Eficiencia en Strings**: Se utiliza `StringBuilder` para construir el número final antes de su conversión, optimizando el uso de memoria en comparación con la concatenación repetida de Strings[cite: 74].
+
+
+
+## 5. Reflexión sobre Principios de Diseño
+- [cite_start]**Abierto/Cerrado (OCP)**: Hemos extendido la funcionalidad del software añadiendo una clase, no modificando las existentes[cite: 86, 87].
+- **Responsabilidad Única (SRP)**: La lógica del algoritmo voraz está aislada. [cite_start]Si las reglas de selección cambian mañana (por ejemplo, a 15 dígitos), solo se verá afectada esta estrategia.
+- [cite_start]**Modularidad**: El sistema se comporta como un conjunto de piezas intercambiables, donde el `Main` actúa como el punto de montaje.
+
+---
+*Este diseño no solo resuelve el problema actual, sino que establece una infraestructura donde nuevos algoritmos de análisis de energía pueden integrarse en segundos.*

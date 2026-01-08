@@ -1,4 +1,4 @@
-package software.aoc.day02.a;
+package software.aoc.day02.a.model;
 
 public class RepetitiveNumberPredicate implements NumberPredicate {
 

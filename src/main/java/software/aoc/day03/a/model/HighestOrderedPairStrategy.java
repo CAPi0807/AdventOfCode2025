@@ -1,4 +1,6 @@
-package software.aoc.day03.a;
+package software.aoc.day03.a.model;
+
+import software.aoc.day03.a.strategies.JoltageStrategy;
 
 public class HighestOrderedPairStrategy implements JoltageStrategy {
 
