@@ -1,4 +1,4 @@
-package software.aoc.day12.a;
+package software.aoc.day12;
 
 public class Grid {
     private final boolean[][] grid;

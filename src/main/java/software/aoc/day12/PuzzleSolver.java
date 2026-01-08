@@ -1,4 +1,4 @@
-package software.aoc.day12.a;
+package software.aoc.day12;
 
 import java.util.ArrayList;
 import java.util.Comparator;

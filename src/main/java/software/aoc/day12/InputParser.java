@@ -1,4 +1,4 @@
-package software.aoc.day12.a;
+package software.aoc.day12;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 public class InputParser {
 

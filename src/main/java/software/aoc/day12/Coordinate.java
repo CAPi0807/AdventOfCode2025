@@ -1,4 +1,4 @@
-package software.aoc.day12.a;
+package software.aoc.day12;
 
 public record Coordinate(int r, int c) {
     public Coordinate add(Coordinate other) {
