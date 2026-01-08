@@ -1,4 +1,7 @@
-package software.aoc.day01.a;
+package software.aoc.day01.a.parser;
+
+import software.aoc.day01.a.model.Direction;
+import software.aoc.day01.a.model.Instruction;
 
 import java.util.List;
 

@@ -1,7 +1,8 @@
 package software.aoc.day01.b;
 
-import software.aoc.day01.a.Instruction;
-import software.aoc.day01.a.InstructionParser;
+import software.aoc.day01.a.model.Instruction;
+import software.aoc.day01.a.parser.InstructionParser;
+import software.aoc.day01.b.service.PasswordServiceB;
 
 import java.io.IOException;
 import java.nio.file.Files;

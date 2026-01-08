@@ -1,7 +1,7 @@
-package software.aoc.day01.b;
+package software.aoc.day01.b.model;
 
-import software.aoc.day01.a.Direction; // IMPORTANTE: Usamos el Enum de A
-import software.aoc.day01.a.Instruction;
+import software.aoc.day01.a.model.Direction; // IMPORTANTE: Usamos el Enum de A
+import software.aoc.day01.a.model.Instruction;
 
 public record Dial(int position) {
 

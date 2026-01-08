@@ -1,4 +1,4 @@
-package software.aoc.day01.a;
+package software.aoc.day01.a.model;
 
 public final class Dial {
     private final int position;

@@ -1,7 +1,11 @@
 package Day01Test.a;
 
 import org.junit.jupiter.api.Assertions;
-import software.aoc.day01.a.*;
+import software.aoc.day01.a.model.Dial;
+import software.aoc.day01.a.model.Direction;
+import software.aoc.day01.a.model.Instruction;
+import software.aoc.day01.a.parser.InstructionParser;
+import software.aoc.day01.a.service.PasswordService;
 
 import java.io.IOException;
 import java.nio.file.Files;

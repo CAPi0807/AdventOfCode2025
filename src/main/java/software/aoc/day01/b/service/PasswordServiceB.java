@@ -1,6 +1,8 @@
-package software.aoc.day01.b;
+package software.aoc.day01.b.service;
 
-import software.aoc.day01.a.Instruction;
+import software.aoc.day01.a.model.Instruction;
+import software.aoc.day01.b.model.Dial;
+import software.aoc.day01.b.model.TurnResult;
 
 import java.util.List;
 
