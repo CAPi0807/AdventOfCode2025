@@ -2,7 +2,10 @@ package Day05Test.b; // Mismo paquete de test
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day05.b.*;
+import software.aoc.day05.b.model.NumericRange;
+import software.aoc.day05.b.model.RangeMerger;
+import software.aoc.day05.b.parser.RangeParser;
+import software.aoc.day05.b.service.AvailabilityService;
 
 import java.io.IOException;
 import java.nio.file.Files;

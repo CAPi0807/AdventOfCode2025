@@ -1,4 +1,7 @@
-package software.aoc.day05.b;
+package software.aoc.day05.b.service;
+
+import software.aoc.day05.b.model.NumericRange;
+import software.aoc.day05.b.model.RangeMerger;
 
 import java.util.List;
 

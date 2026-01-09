@@ -1,4 +1,7 @@
-package software.aoc.day05.a;
+package software.aoc.day05.a.policies;
+
+import software.aoc.day05.a.model.NumericRange;
+import software.aoc.day05.a.model.ValidationPolicy;
 
 import java.util.List;
 

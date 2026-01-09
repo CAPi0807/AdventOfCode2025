@@ -1,4 +1,4 @@
-package software.aoc.day05.a;
+package software.aoc.day05.a.model;
 
 public record NumericRange(long start, long end) {
 

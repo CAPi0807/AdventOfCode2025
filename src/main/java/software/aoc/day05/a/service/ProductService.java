@@ -1,4 +1,6 @@
-package software.aoc.day05.a;
+package software.aoc.day05.a.service;
+
+import software.aoc.day05.a.model.ValidationPolicy;
 
 import java.util.List;
 
