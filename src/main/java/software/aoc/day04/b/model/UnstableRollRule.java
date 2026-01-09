@@ -1,7 +1,7 @@
-package software.aoc.day04.b;
+package software.aoc.day04.b.model;
 
-import software.aoc.day04.a.Grid; // Importamos de A
-import software.aoc.day04.a.Position;
+import software.aoc.day04.a.model.Grid; // Importamos de A
+import software.aoc.day04.a.model.Position;
 
 import java.util.List;
 

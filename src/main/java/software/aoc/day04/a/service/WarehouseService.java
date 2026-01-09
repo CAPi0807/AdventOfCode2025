@@ -1,4 +1,8 @@
-package software.aoc.day04.a;
+package software.aoc.day04.a.service;
+
+import software.aoc.day04.a.model.Grid;
+import software.aoc.day04.a.model.Position;
+import software.aoc.day04.a.model.SelectionRule;
 
 import java.util.stream.IntStream;
 

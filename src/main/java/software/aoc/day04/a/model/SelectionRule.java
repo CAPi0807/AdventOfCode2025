@@ -1,4 +1,4 @@
-package software.aoc.day04.a;
+package software.aoc.day04.a.model;
 
 @FunctionalInterface
 public interface SelectionRule {

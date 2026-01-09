@@ -1,6 +1,10 @@
 package software.aoc.day04.b;
 
-import software.aoc.day04.a.Grid; // Importamos de A
+import software.aoc.day04.a.model.Grid; // Importamos de A
+import software.aoc.day04.b.model.SelectionRule;
+import software.aoc.day04.b.model.SimulationResult;
+import software.aoc.day04.b.model.UnstableRollRule;
+import software.aoc.day04.b.service.WarehouseSimulator;
 
 import java.io.IOException;
 import java.nio.file.Files;

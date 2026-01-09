@@ -1,4 +1,4 @@
-package software.aoc.day04.a;
+package software.aoc.day04.a.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,7 +1,10 @@
-package software.aoc.day04.b;
+package software.aoc.day04.b.service;
 
-import software.aoc.day04.a.Grid; // Importamos de A
-import software.aoc.day04.a.Position; // Importamos de A
+import software.aoc.day04.a.model.Grid; // Importamos de A
+import software.aoc.day04.a.model.Position; // Importamos de A
+import software.aoc.day04.b.model.SelectionRule;
+import software.aoc.day04.b.model.SimulationResult;
+
 import java.util.List;
 
 public class WarehouseSimulator {

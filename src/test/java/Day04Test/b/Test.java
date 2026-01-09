@@ -2,9 +2,12 @@ package Day04Test.b;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day04.a.Grid;
-import software.aoc.day04.a.Position;
-import software.aoc.day04.b.*;
+import software.aoc.day04.a.model.Grid;
+import software.aoc.day04.a.model.Position;
+import software.aoc.day04.b.model.SelectionRule;
+import software.aoc.day04.b.model.SimulationResult;
+import software.aoc.day04.b.model.UnstableRollRule;
+import software.aoc.day04.b.service.WarehouseSimulator;
 
 import java.io.IOException;
 import java.nio.file.Files;

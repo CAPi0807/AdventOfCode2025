@@ -2,7 +2,11 @@ package Day04Test.a;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day04.a.*;
+import software.aoc.day04.a.model.Grid;
+import software.aoc.day04.a.model.Position;
+import software.aoc.day04.a.rule.RollSelectionRule;
+import software.aoc.day04.a.model.SelectionRule;
+import software.aoc.day04.a.service.WarehouseService;
 
 import java.io.IOException;
 import java.nio.file.Files;
