@@ -1,5 +1,7 @@
 package software.aoc.day06.b;
 
+import software.aoc.day06.b.service.ProblemSolver;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

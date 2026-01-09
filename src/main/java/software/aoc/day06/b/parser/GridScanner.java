@@ -1,4 +1,8 @@
-package software.aoc.day06.b;
+package software.aoc.day06.b.parser;
+
+import software.aoc.day06.b.model.NumberBlock;
+import software.aoc.day06.b.model.Operation;
+import software.aoc.day06.b.model.ParsedColumn;
 
 import java.util.ArrayList;
 import java.util.List;

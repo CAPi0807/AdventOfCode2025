@@ -1,4 +1,7 @@
-package software.aoc.day06.b;
+package software.aoc.day06.b.service;
+
+import software.aoc.day06.b.model.NumberBlock;
+import software.aoc.day06.b.parser.GridScanner;
 
 import java.util.List;
 

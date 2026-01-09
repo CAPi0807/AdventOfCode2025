@@ -2,7 +2,11 @@ package Day06Test.a;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day06.a.*;
+import software.aoc.day06.a.model.Matrix;
+import software.aoc.day06.a.model.Operator;
+import software.aoc.day06.a.model.ProblemSchema;
+import software.aoc.day06.a.parser.ProblemParser;
+import software.aoc.day06.a.service.ColumnCalculationService;
 
 import java.io.IOException;
 import java.nio.file.Files;

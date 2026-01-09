@@ -2,7 +2,10 @@ package Day06Test.a; // Mismo paquete de test solicitado
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day06.b.*;
+import software.aoc.day06.b.model.NumberBlock;
+import software.aoc.day06.b.model.Operation;
+import software.aoc.day06.b.parser.GridScanner;
+import software.aoc.day06.b.service.ProblemSolver;
 
 import java.io.IOException;
 import java.nio.file.Files;

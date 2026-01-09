@@ -1,5 +1,9 @@
 package software.aoc.day06.a;
 
+import software.aoc.day06.a.model.ProblemSchema;
+import software.aoc.day06.a.parser.ProblemParser;
+import software.aoc.day06.a.service.ColumnCalculationService;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

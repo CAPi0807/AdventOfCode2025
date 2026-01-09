@@ -1,4 +1,4 @@
-package software.aoc.day06.b;
+package software.aoc.day06.b.model;
 
 import java.util.List;
 

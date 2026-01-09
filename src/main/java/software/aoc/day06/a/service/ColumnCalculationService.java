@@ -1,4 +1,8 @@
-package software.aoc.day06.a;
+package software.aoc.day06.a.service;
+
+import software.aoc.day06.a.model.Matrix;
+import software.aoc.day06.a.model.Operator;
+import software.aoc.day06.a.model.ProblemSchema;
 
 import java.util.List;
 
