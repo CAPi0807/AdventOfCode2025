@@ -1,6 +1,7 @@
-package software.aoc.day07.b;
+package software.aoc.day07.b.model;
 
-import java.util.Collections;
+import software.aoc.day07.b.physics.InteractionRule;
+
 import java.util.HashMap;
 import java.util.Map;
 

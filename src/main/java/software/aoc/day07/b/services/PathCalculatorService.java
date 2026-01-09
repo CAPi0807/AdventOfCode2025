@@ -1,4 +1,8 @@
-package software.aoc.day07.b;
+package software.aoc.day07.b.services;
+
+import software.aoc.day07.b.model.Grid;
+import software.aoc.day07.b.physics.InteractionRule;
+import software.aoc.day07.b.model.SimulationState;
 
 public class PathCalculatorService {
 

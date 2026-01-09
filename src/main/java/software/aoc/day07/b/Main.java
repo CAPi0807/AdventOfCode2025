@@ -1,5 +1,9 @@
 package software.aoc.day07.b;
 
+import software.aoc.day07.b.model.Grid;
+import software.aoc.day07.b.physics.InteractionRule;
+import software.aoc.day07.b.services.PathCalculatorService;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

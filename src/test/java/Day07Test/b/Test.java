@@ -2,7 +2,9 @@ package Day07Test.a; // Mismo paquete de test solicitado
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day07.b.*;
+import software.aoc.day07.b.model.Grid;
+import software.aoc.day07.b.physics.InteractionRule;
+import software.aoc.day07.b.services.PathCalculatorService;
 
 import java.io.IOException;
 import java.nio.file.Files;

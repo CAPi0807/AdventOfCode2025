@@ -1,4 +1,8 @@
-package software.aoc.day07.a;
+package software.aoc.day07.a.service;
+
+import software.aoc.day07.a.model.Grid;
+import software.aoc.day07.a.model.InteractionResult;
+import software.aoc.day07.a.physics.RayPhysics;
 
 import java.util.HashSet;
 import java.util.Set;

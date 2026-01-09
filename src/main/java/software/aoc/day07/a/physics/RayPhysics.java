@@ -1,4 +1,6 @@
-package software.aoc.day07.a;
+package software.aoc.day07.a.physics;
+
+import software.aoc.day07.a.model.InteractionResult;
 
 public class RayPhysics {
 

@@ -1,4 +1,4 @@
-package software.aoc.day07.b;
+package software.aoc.day07.a.model;
 
 import java.util.List;
 
@@ -14,22 +14,25 @@ public class Grid {
     }
 
     public char getCell(int row, int col) {
-        if (isOutOfBounds(col))
+        if (isOutOfBounds(row, col)) {
             return ' ';
-        if (row < 0 || row >= height) return ' ';
+        }
         return lines.get(row).charAt(col);
     }
 
-    public boolean isOutOfBounds(int col) {
-        return col < 0 || col >= width;
+    public boolean isOutOfBounds(int row, int col) {
+        return row < 0 || row >= height || col < 0 || col >= width;
     }
 
     public int findStartColumn() {
+        // Buscamos 'S' en todo el grid
         for (String line : lines) {
             int index = line.indexOf('S');
-            if (index != -1) return index;
+            if (index != -1) {
+                return index;
+            }
         }
-        throw new IllegalStateException("Start point 'S' not found");
+        throw new IllegalStateException("Start point 'S' not found in grid");
     }
 
     public int height() { return height; }

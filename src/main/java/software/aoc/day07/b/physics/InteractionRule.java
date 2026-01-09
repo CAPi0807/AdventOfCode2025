@@ -1,4 +1,4 @@
-package software.aoc.day07.b;
+package software.aoc.day07.b.physics;
 
 import java.util.List;
 

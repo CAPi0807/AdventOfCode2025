@@ -1,5 +1,9 @@
 package software.aoc.day07.a;
 
+import software.aoc.day07.a.model.Grid;
+import software.aoc.day07.a.physics.RayPhysics;
+import software.aoc.day07.a.service.BeamSimulator;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
