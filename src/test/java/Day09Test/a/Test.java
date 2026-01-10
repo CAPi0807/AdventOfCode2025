@@ -2,7 +2,12 @@ package Day09Test.a;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day09.a.*;
+import software.aoc.day09.a.model.AreaStrategy;
+import software.aoc.day09.a.model.BoundingBox;
+import software.aoc.day09.a.model.Point;
+import software.aoc.day09.a.parser.PointParser;
+import software.aoc.day09.a.service.GeometryService;
+import software.aoc.day09.a.strategy.BruteForcePairsStrategy;
 
 import java.io.IOException;
 import java.nio.file.Files;

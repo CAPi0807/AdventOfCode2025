@@ -1,9 +1,9 @@
 package software.aoc.day08.b;
 
-import software.aoc.day08.a.DistanceStrategy;
-import software.aoc.day08.a.Edge;
-import software.aoc.day08.a.EuclideanStrategy;
-import software.aoc.day08.a.Point3D;
+import software.aoc.day08.a.model.DistanceStrategy;
+import software.aoc.day08.a.model.Edge;
+import software.aoc.day08.a.strategies.EuclideanStrategy;
+import software.aoc.day08.a.model.Point3D;
 
 import java.util.ArrayList;
 import java.util.List;

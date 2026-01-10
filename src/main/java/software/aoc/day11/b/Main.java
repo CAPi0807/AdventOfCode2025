@@ -1,5 +1,7 @@
 package software.aoc.day11.b;
 
+import software.aoc.day11.b.service.WaypointRouteService;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,7 +15,7 @@ public class Main {
         try (var linesStream = Files.lines(path)) {
             List<String> lines = linesStream.toList();
 
-            Day11BSolver solver = new Day11BSolver();
+            WaypointRouteService solver = new WaypointRouteService();
             long result = solver.solve(lines);
 
             System.out.println("--- DÍA 11 PARTE B ---");

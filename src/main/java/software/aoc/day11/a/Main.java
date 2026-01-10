@@ -1,5 +1,7 @@
 package software.aoc.day11.a;
 
+import software.aoc.day11.a.service.RouteAnalysisService;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,7 +16,7 @@ public class Main {
         try (var stream = Files.lines(path)) {
             List<String> lines = stream.toList();
 
-            Day11Solver solver = new Day11Solver();
+            RouteAnalysisService solver = new RouteAnalysisService();
             long totalPaths = solver.solve(lines);
 
             System.out.println("--- DÍA 11 ---");

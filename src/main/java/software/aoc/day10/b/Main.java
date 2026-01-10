@@ -5,8 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import software.aoc.day10.a.Machine;
-import software.aoc.day10.a.MachineParser;
+import software.aoc.day10.a.model.Machine;
+import software.aoc.day10.a.parser.MachineParser;
+import software.aoc.day10.b.service.Day10BSolver;
 
 public class Main {
 

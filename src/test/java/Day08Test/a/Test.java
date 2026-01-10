@@ -2,7 +2,12 @@ package Day08Test.a;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day08.a.*;
+import software.aoc.day08.a.model.DisjointSet;
+import software.aoc.day08.a.model.DistanceStrategy;
+import software.aoc.day08.a.model.Point3D;
+import software.aoc.day08.a.parser.CoordinateParser;
+import software.aoc.day08.a.service.NetworkService;
+import software.aoc.day08.a.strategies.EuclideanStrategy;
 
 import java.io.IOException;
 import java.nio.file.Files;

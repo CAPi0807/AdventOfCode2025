@@ -5,9 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import software.aoc.day08.a.EuclideanStrategy;
-import software.aoc.day08.a.Point3D;
-import software.aoc.day08.a.CoordinateParser;
+import software.aoc.day08.a.strategies.EuclideanStrategy;
+import software.aoc.day08.a.model.Point3D;
+import software.aoc.day08.a.parser.CoordinateParser;
 
 public class Main {
 

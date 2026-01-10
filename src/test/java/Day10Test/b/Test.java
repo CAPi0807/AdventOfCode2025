@@ -2,9 +2,9 @@ package Day10Test.b;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day10.a.Machine;
-import software.aoc.day10.b.Day10BSolver;
-import software.aoc.day10.b.LinearOptimizer;
+import software.aoc.day10.a.model.Machine;
+import software.aoc.day10.b.service.Day10BSolver;
+import software.aoc.day10.b.service.LinearOptimizer;
 
 import java.util.List;
 

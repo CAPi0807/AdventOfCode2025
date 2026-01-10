@@ -2,7 +2,7 @@ package Day11Test.b;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day11.b.Day11BSolver;
+import software.aoc.day11.b.service.WaypointRouteService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,7 +24,7 @@ class Day11BTest {
                 "dac: out"
         );
 
-        Day11BSolver solver = new Day11BSolver();
+        WaypointRouteService solver = new WaypointRouteService();
         long result = solver.solve(input);
 
         // Variante 1: 1 * 1 * 1 = 1
@@ -44,7 +44,7 @@ class Day11BTest {
                 "fft: out"
         );
 
-        Day11BSolver solver = new Day11BSolver();
+        WaypointRouteService solver = new WaypointRouteService();
         long result = solver.solve(input);
 
         Assertions.assertEquals(1, result);
@@ -74,7 +74,7 @@ class Day11BTest {
                 "f: out"
         );
 
-        Day11BSolver solver = new Day11BSolver();
+        WaypointRouteService solver = new WaypointRouteService();
         long result = solver.solve(input);
 
         Assertions.assertEquals(8, result);
@@ -116,7 +116,7 @@ class Day11BTest {
         // La otra dará 0. La suma será correcta.
         // Probaremos que el solver maneja esto devolviendo el resultado de la única rama válida.
 
-        Day11BSolver solver = new Day11BSolver();
+        WaypointRouteService solver = new WaypointRouteService();
 
         // Grafo donde svr -> fft -> dac -> out
         // Intentar calcular la inversa debe dar 0.
@@ -154,7 +154,7 @@ class Day11BTest {
         Files.writeString(tempPath, content);
 
         try (var lines = Files.lines(tempPath)) {
-            Day11BSolver solver = new Day11BSolver();
+            WaypointRouteService solver = new WaypointRouteService();
             long result = solver.solve(lines.toList());
 
             Assertions.assertEquals(2, result);

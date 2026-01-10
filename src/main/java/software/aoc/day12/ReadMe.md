@@ -1,56 +1,34 @@
-# Advent of Code - Día 12: Christmas Packing (2D Bin Packing / Tiling)
+# Advent of Code - Día 12: Empaquetamiento de Regalos (2D Packing)
 
-Este proyecto resuelve un problema de **Backtracking** para determinar si un conjunto de figuras tipo "Tetris" (poliominós) puede encajar perfectamente en una cuadrícula de dimensiones dadas sin solaparse.
+## 1. Introducción al Problema
+El reto final nos plantea un problema de optimización combinatoria: ¿podemos encajar un conjunto de figuras irregulares en una rejilla de dimensiones fijas? A diferencia de retos anteriores, aquí el estado es altamente volátil y el árbol de decisiones es enorme, lo que nos obliga a usar técnicas de **Backtracking** asistidas por geometría computacional.
 
-## Principios de Diseño y Arquitectura
 
-### 1. Modelado de Figuras (`Shape`)
-Una figura se define por un conjunto de coordenadas relativas.
-- **Inmutabilidad**: La clase `Shape` es inmutable.
-- **Normalización**: Al crearse, las coordenadas se normalizan (se desplazan para empezar en `0,0`), lo que simplifica la lógica de colocación.
-- **Pre-cálculo de Rotaciones**: Dado que probar orientaciones es parte del algoritmo, cada figura pre-calcula sus rotaciones únicas (0°, 90°, 180°, 270°) en el constructor. Esto evita cálculos redundantes durante la recursión intensiva.
 
-### 2. Estructura de Datos (`Grid`)
-Representa el tablero de juego.
-- Utiliza una matriz booleana (`boolean[][]`) para eficiencia máxima.
-- **Single Responsibility**: Solo sabe verificar si una posición está libre (`canPlace`) y actualizar su estado (`place`/`remove`). No contiene lógica de búsqueda.
+## 2. El Modelo Geométrico: `Shape` y `Grid`
+Para manejar la complejidad de las figuras, hemos aplicado principios de **Alta Cohesión**:
+- **Normalización**: El objeto `Shape` traslada automáticamente cualquier conjunto de coordenadas al origen (0,0). Esto permite comparar figuras y rotaciones de forma unívoca.
+- **Gestión de Rotaciones**: La clase pre-calcula las rotaciones únicas de cada figura. Mediante el uso de `distinct()`, evitamos probar posiciones redundantes para figuras simétricas (como un cuadrado o una línea).
+- **Abstracción del Tablero**: El `Grid` gestiona la ocupación de celdas mediante una matriz de booleanos, proporcionando métodos seguros para `place`, `remove` y el chequeo de colisiones `canPlace`.
 
-### 3. Algoritmo de Resolución (`PuzzleSolver`)
-Implementa un **Backtracking Recursivo** con optimizaciones (Pruning):
-1.  **Chequeo de Área**: Si la suma de las áreas de las piezas es mayor que el área del tablero, retorna `false` inmediatamente.
-2.  **Heurística de Ordenamiento**: Intenta colocar primero las piezas más grandes. Esto suele hacer que el backtracking falle más rápido en ramas imposibles (fail-fast).
-3.  **Recursión**:
-    - Intenta colocar la pieza actual en cada celda libre.
-    - Prueba todas las rotaciones posibles.
-    - Si encaja, actualiza el grid y llama recursivamente para la siguiente pieza.
-    - Si la recursión falla, hace "backtrack" (libera el espacio y prueba lo siguiente).
+## 3. Motor de Resolución: Backtracking Optimizado
+El `PuzzleSolver` implementa una búsqueda recursiva profunda. Para que este proceso sea viable en tiempos razonables, aplicamos varias estrategias:
+1. **Poda por Área**: Antes de empezar, sumamos el área de todas las figuras. Si el total supera el área del contenedor, descartamos el caso inmediatamente.
+2. **Ordenación Crítica**: Ordenamos las figuras de mayor a menor tamaño. Es un fundamento de diseño: encajar las piezas grandes al principio reduce drásticamente las ramas fallidas del árbol de búsqueda.
+3. **Recursión con Deshacer**: El algoritmo intenta colocar una figura, avanza a la siguiente y, si llega a un callejón sin salida, "deshace" el movimiento (Backtrack) para probar una nueva posición o rotación.
 
-### 4. Parsing Robusto (`InputParser`)
-Maneja un formato de archivo mixto que contiene definiciones de figuras (con arte ASCII) y casos de prueba en la misma entrada.
 
-## Documentación de Archivos
 
-### 1. `Main.java`
-* **Función**: Punto de entrada.
-* **Detalles**: Lee el archivo, obtiene el dataset completo y ejecuta el solver para cada caso de prueba, contando cuántos son válidos.
+## 4. El Analizador: `InputParser`
+Debido a que el archivo de entrada (`Presents.txt`) mezcla definiciones visuales de figuras con casos de prueba compactos, el `InputParser` utiliza un enfoque de **análisis por estados**:
+- **Sección de Figuras**: Lee bloques de caracteres `#` y los convierte en conjuntos de coordenadas.
+- **Sección de Casos**: Utiliza Expresiones Regulares (Regex) para interpretar líneas tipo `12x5: 1 0 1`, traduciendo los IDs de figura a listas de objetos reales listos para ser procesados.
 
-### 2. `Coordinate.java`
-* **Función**: Value Object (Record).
-* **Detalles**: Representa `(fila, columna)`. Incluye método `add` para aritmética vectorial simple.
+## 5. Fundamentos de Software y SOLID Aplicados
+- **Responsabilidad Única (SRP)**: El `Grid` solo sabe de colisiones, el `Shape` solo de geometría y el `Solver` solo de estrategia de búsqueda.
+- **Inmutabilidad**: Las figuras y coordenadas son inmutables, lo que garantiza que la rotación de una pieza no altere accidentalmente la definición original.
+- **Código Expresivo**: El uso de Streams de Java para calcular áreas y normalizar coordenadas permite que la lógica sea declarativa y fácil de seguir.
+- **Inversión de Dependencias (DIP)**: El simulador depende de la abstracción de "Figura", permitiendo que el sistema soporte cualquier forma irregular (poliminós) sin cambios en el código base.
 
-### 3. `Shape.java`
-* **Función**: Dominio Rico.
-* **Detalles**:
-    - `normalize()`: Mueve la figura al origen.
-    - `rotate()`: Aplica matriz de rotación 90 grados $(x,y) \to (y, -x)$.
-    - `generateUniqueRotations()`: Filtra rotaciones simétricas (ej: rotar un cuadrado 90 grados da la misma forma, no hace falta probarlo 4 veces).
-
-### 4. `Grid.java`
-* **Función**: Estado Mutable Controlado.
-* **Detalles**: Provee métodos atómicos `place` y `remove` para facilitar el backtracking.
-
-### 5. `InputParser.java`
-* **Función**: Lógica de Texto Compleja.
-* **Detalles**:
-    - Detecta secciones de "definición" (ID + mapa de `#`) y secciones de "test" (`NxM: ...`).
-    - Construye la lista plana de objetos `Shape` requerida para cada test.
+---
+*Este diseño cierra el ciclo de retos demostrando que, incluso ante problemas de complejidad NP-Completa, una arquitectura limpia y modular es la clave para una resolución eficiente.*

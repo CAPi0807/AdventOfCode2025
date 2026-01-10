@@ -2,15 +2,17 @@ package Day09Test.a; // Mismo paquete de test
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day09.a.BoundingBox;
-import software.aoc.day09.a.Point;
-import software.aoc.day09.b.*;
+import software.aoc.day09.a.model.BoundingBox;
+import software.aoc.day09.a.model.Point;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import software.aoc.day09.a.PointParser; // Necesario importar parser de A
+import software.aoc.day09.a.parser.PointParser; // Necesario importar parser de A
+import software.aoc.day09.b.model.CompressedGrid;
+import software.aoc.day09.b.model.RayCaster;
+import software.aoc.day09.b.service.ConstrainedSolver;
 
 class Day09BTest {
 

@@ -1,5 +1,10 @@
 package software.aoc.day08.a;
 
+import software.aoc.day08.a.model.Point3D;
+import software.aoc.day08.a.parser.CoordinateParser;
+import software.aoc.day08.a.service.NetworkService;
+import software.aoc.day08.a.strategies.EuclideanStrategy;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

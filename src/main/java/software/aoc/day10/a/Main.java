@@ -1,5 +1,9 @@
 package software.aoc.day10.a;
 
+import software.aoc.day10.a.model.Machine;
+import software.aoc.day10.a.parser.MachineParser;
+import software.aoc.day10.a.service.Day10Solver;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -1,8 +1,9 @@
 package software.aoc.day09.b;
 
-import software.aoc.day09.a.BoundingBox;
-import software.aoc.day09.a.Point;
-import software.aoc.day09.a.PointParser;
+import software.aoc.day09.a.model.BoundingBox;
+import software.aoc.day09.a.model.Point;
+import software.aoc.day09.a.parser.PointParser;
+import software.aoc.day09.b.service.ConstrainedSolver;
 
 import java.io.IOException;
 import java.nio.file.Files;

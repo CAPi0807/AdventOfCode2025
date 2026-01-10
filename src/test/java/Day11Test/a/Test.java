@@ -2,7 +2,10 @@ package Day11Test.a;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day11.a.*;
+import software.aoc.day11.a.model.Graph;
+import software.aoc.day11.a.parser.GraphParser;
+import software.aoc.day11.a.service.PathCounter;
+import software.aoc.day11.a.service.RouteAnalysisService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -72,7 +75,7 @@ class Day11ATest {
         Path path = Path.of("src/test/resources/Day11/Connections.txt");
         List<String> lines = Files.readAllLines(path);
 
-        Day11Solver solver = new Day11Solver();
+        RouteAnalysisService solver = new RouteAnalysisService();
         long result = solver.solve(lines);
 
         // Desglose de caminos esperados (5):

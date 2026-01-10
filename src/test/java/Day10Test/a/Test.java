@@ -2,7 +2,10 @@ package Day10Test.a;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day10.a.*;
+import software.aoc.day10.a.model.Machine;
+import software.aoc.day10.a.parser.MachineParser;
+import software.aoc.day10.a.service.Day10Solver;
+import software.aoc.day10.a.service.GaussianSolver;
 
 import java.io.IOException;
 import java.nio.file.Files;

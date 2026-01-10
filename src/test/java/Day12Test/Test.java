@@ -2,7 +2,11 @@ package Day12Test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day12.*;
+import software.aoc.day12.model.Coordinate;
+import software.aoc.day12.model.Grid;
+import software.aoc.day12.model.Shape;
+import software.aoc.day12.parser.InputParser;
+import software.aoc.day12.service.PuzzleSolver;
 
 import java.io.IOException;
 import java.nio.file.Files;
