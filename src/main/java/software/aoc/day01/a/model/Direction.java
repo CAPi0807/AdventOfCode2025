@@ -12,8 +12,6 @@ public enum Direction {
         };
     }
 
-    // Puedes dejar calculateNewPosition aquí si quieres que A lo use,
-    // pero B usará su propia lógica.
     public int calculateNewPosition(int currentPosition, int amount) {
         if (this == LEFT) {
             return Math.floorMod(currentPosition - amount, 100);

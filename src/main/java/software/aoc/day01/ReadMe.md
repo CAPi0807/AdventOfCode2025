@@ -10,7 +10,7 @@ El sistema sigue un flujo lineal claramente definido:
 ---
 
 ## Principios SOLID y Limpieza de Código
-Para asegurar que este código sea mantenible, se han aplicado cuatro pilares fundamentales:
+Para asegurar que este código sea mantenible, se he aplicado cuatro pilares fundamentales:
 
 - **SRP (Responsabilidad Única)**  
   Cada archivo hace una sola cosa. El parser no sabe de matemáticas, y el dial no sabe de archivos de texto.
@@ -19,7 +19,7 @@ Para asegurar que este código sea mantenible, se han aplicado cuatro pilares fu
   Gracias al uso del `Enum Direction`, si el reto mañana añade una dirección `"UP"`, solo añadimos una constante al enum sin tocar la lógica de movimiento del `Dial`.
 
 - **Inmutabilidad**  
-  Se utiliza `record` para las instrucciones y se devuelven nuevas instancias de `Dial` en cada movimiento. Esto evita efectos secundarios y errores de estado compartido.
+  Utilizo `record` para las instrucciones y se devuelven nuevas instancias de `Dial` en cada movimiento. Esto evita efectos secundarios y errores de estado compartido.
 
 - **Separación de Preocupaciones**  
   El `Main` actúa únicamente como “pegamento”, delegando todo el trabajo a componentes especializados.
@@ -57,7 +57,7 @@ Empareja una dirección con una cantidad de pasos y define el lenguaje que entie
 ---
 
 ### 4. El Traductor: `InstructionParser.java`
-Componente encargado de limpiar el ruido externo.
+Componente encargado de hacer el input trabajable.
 
 - **`parseAll()`**  
   Recibe una lista de `String` (provenientes del archivo) y utiliza *Streams* de Java para:

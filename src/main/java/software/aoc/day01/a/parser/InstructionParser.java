@@ -9,8 +9,6 @@ public class InstructionParser {
 
     public List<Instruction> parseAll(List<String> lines) {
         return lines.stream()
-                .map(String::trim)
-                .filter(line -> !line.isEmpty())
                 .map(this::parseSingle)
                 .toList();
     }
