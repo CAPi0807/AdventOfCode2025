@@ -20,6 +20,7 @@ Para asegurar que este código sea mantenible, se he aplicado cuatro pilares fun
 
 - **Inmutabilidad**  
   Utilizo `record` para las instrucciones y se devuelven nuevas instancias de `Dial` en cada movimiento. Esto evita efectos secundarios y errores de estado compartido.
+  `Dial` tabién es un record.
 
 - **Separación de Preocupaciones**  
   El `Main` actúa únicamente como “pegamento”, delegando todo el trabajo a componentes especializados.
@@ -116,10 +117,10 @@ Este nuevo requerimiento cambia fundamentalmente el diseño, ya que deja de ser 
 ## Análisis Detallado del Código
 
 ### 1. El Objeto de Dominio: `Dial.java` (Record)
-A diferencia de la Parte A, aquí el `Dial` se implementa como un `record`.
 
 - **Validación**  
   El constructor compacto asegura que nunca exista un `Dial` con una posición menor a `0` o mayor a `99`.
+  (Fue la fuente de mis primeros intentos fallidos)
 
 - **`turn()`**  
   Es la función maestra. Recibe una instrucción y, en lugar de devolver solo un `Dial`, devuelve un `TurnResult`.

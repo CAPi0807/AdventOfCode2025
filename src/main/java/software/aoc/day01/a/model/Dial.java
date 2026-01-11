@@ -1,16 +1,6 @@
 package software.aoc.day01.a.model;
 
-public final class Dial {
-    private final int position;
-
-    public Dial(int position) {
-        this.position = position;
-    }
-
-    public int position() {
-        return position;
-    }
-
+public record Dial(int position) {
 
     public Dial move(Instruction instruction) {
         int newPos = instruction.direction()

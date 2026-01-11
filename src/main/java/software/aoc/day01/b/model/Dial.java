@@ -1,6 +1,6 @@
 package software.aoc.day01.b.model;
 
-import software.aoc.day01.a.model.Direction; // IMPORTANTE: Usamos el Enum de A
+import software.aoc.day01.a.model.Direction; // IMPORTANTE: Uso el Enum de A
 import software.aoc.day01.a.model.Instruction;
 
 public record Dial(int position) {
@@ -22,7 +22,6 @@ public record Dial(int position) {
         return new TurnResult(new Dial(newPos), hits);
     }
 
-    // Lógica específica de la Parte B encapsulada aquí
     private int calculateHits(Direction dir, int amount) {
         return switch (dir) {
             case RIGHT -> (position + amount) / SIZE;
