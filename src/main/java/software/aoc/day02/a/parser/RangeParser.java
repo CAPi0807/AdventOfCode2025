@@ -12,7 +12,7 @@ public class RangeParser {
             return List.of();
         }
 
-        return Arrays.stream(content.trim().split(","))
+        return Arrays.stream(content.split(","))
                 .map(rangeStr -> rangeStr.split("-"))
                 .map(NumericRange::fromParts)
                 .toList();

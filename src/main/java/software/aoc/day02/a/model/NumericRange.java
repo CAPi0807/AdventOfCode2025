@@ -5,7 +5,7 @@ import java.util.stream.LongStream;
 public record NumericRange(long start, long end) {
 
     public NumericRange {
-        if (start > end) {
+        if (start > end) {      //Por si acaso, que no me fio
             long temp = start;
             start = end;
             end = temp;

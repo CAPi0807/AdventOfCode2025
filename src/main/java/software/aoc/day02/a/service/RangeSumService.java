@@ -18,8 +18,7 @@ public class RangeSumService {
         return ranges.stream()
                 .flatMapToLong(NumericRange::stream)
                 .filter(validator::test)
-                .distinct()
-                .sorted()
+                .distinct()     //De nuevo, por si acaso
                 .sum();
     }
 }
