@@ -1,6 +1,7 @@
-package software.aoc.day03.a.model;
+package software.aoc.day03.a.strategies;
 
-import software.aoc.day03.a.strategies.JoltageStrategy;
+import software.aoc.day03.a.model.Battery;
+import software.aoc.day03.a.model.JoltageStrategy;
 
 public class HighestOrderedPairStrategy implements JoltageStrategy {
 
@@ -11,7 +12,7 @@ public class HighestOrderedPairStrategy implements JoltageStrategy {
         int length = s.length();
 
         for (int i = 0; i < length - 1; i++) {
-            // Conversión optimizada de char a int ('5' - '0' = 5)
+            // Conversión optimizada de char a int ('5' - '0' = 5), el ASCII es un ASC-o
             int firstDigit = s.charAt(i) - '0';
 
             for (int j = i + 1; j < length; j++) {
@@ -22,7 +23,7 @@ public class HighestOrderedPairStrategy implements JoltageStrategy {
 
                 if (pairValue > max) {
                     max = pairValue;
-                    // Short-circuit: 99 es el máximo matemático posible
+                    // Short-circuit: 99 es el máximo matemático posible, así q pa' qué mirar más
                     if (max == 99) return max;
                 }
             }

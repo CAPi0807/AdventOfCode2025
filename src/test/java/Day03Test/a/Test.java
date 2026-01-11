@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import software.aoc.day03.a.model.Battery;
 import software.aoc.day03.a.parser.BatteryParser;
 import software.aoc.day03.a.service.JoltageService;
-import software.aoc.day03.a.model.HighestOrderedPairStrategy;
-import software.aoc.day03.a.strategies.JoltageStrategy;
+import software.aoc.day03.a.strategies.HighestOrderedPairStrategy;
+import software.aoc.day03.a.model.JoltageStrategy;
 
 import java.io.IOException;
 import java.nio.file.Files;

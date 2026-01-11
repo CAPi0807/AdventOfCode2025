@@ -1,6 +1,4 @@
-package software.aoc.day03.a.strategies;
-
-import software.aoc.day03.a.model.Battery;
+package software.aoc.day03.a.model;
 
 @FunctionalInterface
 public interface JoltageStrategy {
