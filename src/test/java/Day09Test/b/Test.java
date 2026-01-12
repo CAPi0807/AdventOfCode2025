@@ -1,4 +1,4 @@
-package Day09Test.a; // Mismo paquete de test
+package Day09Test.b; // Mismo paquete de test
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,8 +20,7 @@ class Day09BTest {
     void testRayCasterSimpleSquare() {
         RayCaster caster = new RayCaster();
         List<Point> square = List.of(
-                new Point(0,0), new Point(10,0), new Point(10,10), new Point(0,10)
-        );
+                new Point(0, 0), new Point(10, 0), new Point(10, 10), new Point(0, 10));
 
         Assertions.assertTrue(caster.isPointInside(5, 5, square)); // Centro
         Assertions.assertFalse(caster.isPointInside(15, 5, square)); // Fuera
@@ -32,28 +31,27 @@ class Day09BTest {
     void testCompressedGridLShape() {
         // Forma de L:
         // (0,10) -- (5,10)
-        // |         |
-        // |         (5,5) -- (10,5)
-        // |                  |
+        // | |
+        // | (5,5) -- (10,5)
+        // | |
         // (0,0) ------------ (10,0)
         List<Point> lShape = List.of(
-                new Point(0,0), new Point(10,0), new Point(10,5),
-                new Point(5,5), new Point(5,10), new Point(0,10)
-        );
+                new Point(0, 0), new Point(10, 0), new Point(10, 5),
+                new Point(5, 5), new Point(5, 10), new Point(0, 10));
 
         RayCaster caster = new RayCaster();
         CompressedGrid grid = new CompressedGrid(lShape, caster);
 
         // Rectángulo válido en la parte inferior ancha
-        BoundingBox validBottom = new BoundingBox(new Point(0,0), new Point(10,5));
+        BoundingBox validBottom = new BoundingBox(new Point(0, 0), new Point(10, 5));
         Assertions.assertTrue(grid.fullyCovers(validBottom));
 
         // Rectángulo válido en la parte vertical izquierda
-        BoundingBox validLeft = new BoundingBox(new Point(0,0), new Point(5,10));
+        BoundingBox validLeft = new BoundingBox(new Point(0, 0), new Point(5, 10));
         Assertions.assertTrue(grid.fullyCovers(validLeft));
 
         // Rectángulo inválido (ocupa el hueco de la L en 5,5 -> 10,10)
-        BoundingBox invalid = new BoundingBox(new Point(0,0), new Point(10,10));
+        BoundingBox invalid = new BoundingBox(new Point(0, 0), new Point(10, 10));
         Assertions.assertFalse(grid.fullyCovers(invalid));
     }
 

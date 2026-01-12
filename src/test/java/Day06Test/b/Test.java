@@ -1,4 +1,4 @@
-package Day06Test.a; // Mismo paquete de test solicitado
+package Day06Test.b; // Mismo paquete de test solicitado
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ class Day06BTest {
         // Col 1: ' ', ' ' -> Espacio (Rompe bloque)
         // Col 2: '2', ' ' -> 2
         // Col 3: ' ', '2' -> 2 (Contiguo al anterior)
-        // Ops:   ' ', ' ', '*', ' '
+        // Ops: ' ', ' ', '*', ' '
 
         // Bloque 1: [11]. Op: ' ' -> SUM. Res: 11.
         // Bloque 2: [2, 2]. Op: '*' -> MULT. Res: 4.
@@ -51,8 +51,7 @@ class Day06BTest {
 
         List<String> data = List.of(
                 "1 2 ",
-                "1  2"
-        );
+                "1  2");
         String ops = "  * "; // El * está bajo la primera col del segundo bloque (índice 2)
 
         GridScanner scanner = new GridScanner();
