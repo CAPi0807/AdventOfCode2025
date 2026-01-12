@@ -174,3 +174,73 @@ La **Parte B** es conceptualmente más robusta.
 Mientras que la Parte A era un cálculo de *foto fija* al final de cada movimiento, la Parte B es un cálculo de *película*, donde importa todo el trayecto recorrido.
 
 El uso de `TurnResult` permite que el sistema crezca en complejidad sin sacrificar claridad, inmutabilidad ni limpieza arquitectónica, confirmando la solidez del diseño original.
+
+---
+
+## Diagrama de Clases UML
+
+Aquí se muestra la estructura de clases y sus relaciones para ambas partes del desafío:
+
+```mermaid
+classDiagram
+    direction LR
+    
+    namespace Shared {
+        class Instruction {
+            <<record>>
+            +Direction direction
+            +int amount
+        }
+        class Direction {
+            <<enum>>
+            LEFT
+            RIGHT
+            +fromChar(char) Direction
+            +calculateNewPosition(int, int) int
+        }
+    }
+
+    namespace PartA {
+        class DialA["Dial"] {
+            <<record>>
+            +int position
+            +move(Instruction) Dial
+            +calculateScore() int
+        }
+        class InstructionParser {
+            +parseAll(List~String~) List~Instruction~
+        }
+        class PasswordService {
+            +calculatePassword(int, List~Instruction~) int
+        }
+    }
+
+    namespace PartB {
+        class DialB["Dial"] {
+            <<record>>
+            +int position
+            +turn(Instruction) TurnResult
+        }
+        class TurnResult {
+            <<record>>
+            +Dial newDial
+            +int hitsGenerated
+        }
+        class PasswordServiceB {
+            +calculatePassword(int, List~Instruction~) int
+        }
+    }
+
+    Instruction --> Direction
+    
+    InstructionParser ..> Instruction : creates
+    
+    DialA ..> Instruction : uses
+    PasswordService --> DialA : uses
+    PasswordService ..> Instruction : uses
+
+    DialB ..> Instruction : uses
+    DialB ..> TurnResult : returns
+    PasswordServiceB --> DialB : uses
+    PasswordServiceB ..> Instruction : uses
+```
