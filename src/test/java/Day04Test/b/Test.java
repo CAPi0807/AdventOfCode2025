@@ -3,6 +3,7 @@ package Day04Test.b;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import software.aoc.day04.a.model.Grid;
+import software.aoc.day04.a.model.GridParser;
 import software.aoc.day04.a.model.Position;
 import software.aoc.day04.b.model.SelectionRule;
 import software.aoc.day04.b.model.SimulationResult;
@@ -20,7 +21,7 @@ class Day04BTest {
     void testGridImmutability() {
         // Verificar que 'without' devuelve una instancia nueva y no toca la vieja
         List<String> input = List.of("@");
-        Grid original = new Grid(input);
+        Grid original = GridParser.parse(input);
 
         Grid modified = original.without(List.of(new Position(0,0)));
 
@@ -37,7 +38,7 @@ class Day04BTest {
         // Los centros de borde tienen 5 -> Se quedan.
         // El centro tiene 8 -> Se queda.
         List<String> input = List.of("@@@", "@@@", "@@@");
-        Grid grid = new Grid(input);
+        Grid grid = GridParser.parse(input);
         SelectionRule rule = new UnstableRollRule();
 
         List<Position> matches = rule.findMatches(grid);
@@ -64,7 +65,7 @@ class Day04BTest {
                 "@@@"
         );
 
-        Grid grid = new Grid(input);
+        Grid grid = GridParser.parse(input);
         WarehouseSimulator simulator = new WarehouseSimulator(new UnstableRollRule());
 
         SimulationResult result = simulator.runUntilStable(grid);
@@ -84,7 +85,7 @@ class Day04BTest {
         Path path = Path.of("src/test/resources/Day04/Rolls.txt");
         List<String> lines = Files.readAllLines(path);
 
-        Grid grid = new Grid(lines);
+        Grid grid = GridParser.parse(lines);
         WarehouseSimulator simulator = new WarehouseSimulator(new UnstableRollRule());
 
         SimulationResult result = simulator.runUntilStable(grid);

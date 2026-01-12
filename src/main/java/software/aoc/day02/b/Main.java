@@ -15,22 +15,18 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            // 1. Inyección de dependencias
             // Aquí inyectamos la implementación 'PatternRepetitivePredicate' (Lógica Parte B)
             NumberPredicate predicate = new PatternRepetitivePredicate();
 
             RangeParser parser = new RangeParser();
             RangeSumService service = new RangeSumService(predicate);
 
-            // 2. Lectura
             Path path = Path.of("src/main/resources/Day02/Ranges.txt");
             String content = Files.readString(path);
 
-            // 3. Proceso
             List<NumericRange> ranges = parser.parse(content);
             long result = service.calculateUniqueSum(ranges);
 
-            // 4. Salida
             System.out.println(result);
 
         } catch (IOException e) {

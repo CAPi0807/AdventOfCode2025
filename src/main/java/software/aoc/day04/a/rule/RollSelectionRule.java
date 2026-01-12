@@ -6,23 +6,21 @@ import software.aoc.day04.a.model.SelectionRule;
 
 public class RollSelectionRule implements SelectionRule {
 
-    private static final char ROLL_SYMBOL = '@';
-    private static final int MAX_NEIGHBORS = 4;
+    private static final char roll = '@';
+    private static final int neighbors = 4;
 
     @Override
     public boolean matches(Grid grid, Position position) {
-        // 1. Debe ser un rollo
-        if (grid.get(position) != ROLL_SYMBOL) {
+
+        if (grid.get(position) != roll) {
             return false;
         }
 
-        // 2. Contar vecinos que sean rollos
         long adjacentRolls = position.neighbors().stream()
                 .filter(grid::isValid)
-                .filter(neighbor -> grid.get(neighbor) == ROLL_SYMBOL)
+                .filter(neighbor -> grid.get(neighbor) == roll)
                 .count();
 
-        // 3. Condición de soledad (< 4)
-        return adjacentRolls < MAX_NEIGHBORS;
+        return adjacentRolls < neighbors;
     }
 }

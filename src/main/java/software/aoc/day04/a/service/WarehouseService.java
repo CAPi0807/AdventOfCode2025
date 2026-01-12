@@ -6,13 +6,7 @@ import software.aoc.day04.a.model.SelectionRule;
 
 import java.util.stream.IntStream;
 
-public class WarehouseService {
-
-    private final SelectionRule rule;
-
-    public WarehouseService(SelectionRule rule) {
-        this.rule = rule;
-    }
+public record WarehouseService(SelectionRule rule) {
 
     public long countSafeRolls(Grid grid) {
         return IntStream.range(0, grid.rows())

@@ -1,6 +1,7 @@
 package software.aoc.day04.b;
 
-import software.aoc.day04.a.model.Grid; // Importamos de A
+import software.aoc.day04.a.model.Grid;
+import software.aoc.day04.a.model.GridParser;
 import software.aoc.day04.b.model.SelectionRule;
 import software.aoc.day04.b.model.SimulationResult;
 import software.aoc.day04.b.model.UnstableRollRule;
@@ -17,8 +18,7 @@ public class Main {
         Path path = Path.of("src/main/resources/Day04/Rolls.txt");
         List<String> lines = Files.readAllLines(path);
 
-        // Usamos el Grid unificado del paquete A
-        Grid initialGrid = new Grid(lines);
+        Grid initialGrid = GridParser.parse(lines);
 
         SelectionRule rule = new UnstableRollRule();
         WarehouseSimulator simulator = new WarehouseSimulator(rule);

@@ -1,6 +1,7 @@
 package software.aoc.day04.a;
 
 import software.aoc.day04.a.model.Grid;
+import software.aoc.day04.a.model.GridParser;
 import software.aoc.day04.a.rule.RollSelectionRule;
 import software.aoc.day04.a.model.SelectionRule;
 import software.aoc.day04.a.service.WarehouseService;
@@ -13,19 +14,17 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        // 1. Lectura
+
         Path path = Path.of("src/main/resources/Day04/Rolls.txt");
         List<String> lines = Files.readAllLines(path);
 
-        // 2. Construcción de Dominio
-        Grid warehouse = new Grid(lines);
+        Grid warehouse = GridParser.parse(lines);
+
         SelectionRule rule = new RollSelectionRule();
         WarehouseService service = new WarehouseService(rule);
 
-        // 3. Ejecución
         long count = service.countSafeRolls(warehouse);
 
-        // 4. Salida
         System.out.println("Rollos seleccionables = " + count);
     }
 }

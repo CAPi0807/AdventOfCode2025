@@ -11,21 +11,15 @@ public final class Grid {
     private final int rows;
     private final int cols;
 
-    // Constructor público (Parsing)
-    public Grid(List<String> lines) {
-        this.rows = lines.size();
-        this.cols = lines.isEmpty() ? 0 : lines.getFirst().length();
-        this.data = new char[rows][cols];
-        for (int i = 0; i < rows; i++) {
-            this.data[i] = lines.get(i).toCharArray();
-        }
-    }
-
-    // Constructor privado (Copia interna para inmutabilidad)
-    private Grid(char[][] data) {
+    // Constructor privado: solo se puede crear desde GridParser o internamente
+    Grid(char[][] data) {
         this.rows = data.length;
         this.cols = data.length > 0 ? data[0].length : 0;
-        this.data = data;
+        // Copia defensiva para garantizar inmutabilidad
+        this.data = new char[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            this.data[i] = Arrays.copyOf(data[i], cols);
+        }
     }
 
     public boolean isValid(Position p) {
@@ -42,8 +36,6 @@ public final class Grid {
 
     public int rows() { return rows; }
     public int cols() { return cols; }
-
-    // --- Métodos añadidos para soportar la Parte B ---
 
     public Stream<Position> streamAllPositions() {
         return IntStream.range(0, rows).boxed()

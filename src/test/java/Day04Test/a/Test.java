@@ -3,6 +3,7 @@ package Day04Test.a;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import software.aoc.day04.a.model.Grid;
+import software.aoc.day04.a.model.GridParser;
 import software.aoc.day04.a.model.Position;
 import software.aoc.day04.a.rule.RollSelectionRule;
 import software.aoc.day04.a.model.SelectionRule;
@@ -36,7 +37,7 @@ class Day04Test {
                 ".@.",
                 "..."
         );
-        Grid grid = new Grid(input);
+        Grid grid = GridParser.parse(input);
         SelectionRule rule = new RollSelectionRule();
 
         // El centro tiene 0 vecinos, es seleccionable
@@ -54,7 +55,7 @@ class Day04Test {
                 "@@@",
                 ".@."
         );
-        Grid grid = new Grid(input);
+        Grid grid = GridParser.parse(input);
         SelectionRule rule = new RollSelectionRule();
 
         Position center = new Position(1, 1);
@@ -67,7 +68,7 @@ class Day04Test {
     @Test
     void testRuleEmptySpace() {
         List<String> input = List.of("...");
-        Grid grid = new Grid(input);
+        Grid grid = GridParser.parse(input);
         SelectionRule rule = new RollSelectionRule();
 
         // Un espacio vacío nunca es seleccionable
@@ -83,7 +84,7 @@ class Day04Test {
                 "@@",
                 ".."
         );
-        Grid grid = new Grid(input);
+        Grid grid = GridParser.parse(input);
         SelectionRule rule = new RollSelectionRule();
         WarehouseService service = new WarehouseService(rule);
 
@@ -97,7 +98,7 @@ class Day04Test {
         // Asegúrate de crear este archivo con contenido de prueba
         List<String> lines = Files.readAllLines(path);
 
-        Grid grid = new Grid(lines);
+        Grid grid = GridParser.parse(lines);
         WarehouseService service = new WarehouseService(new RollSelectionRule());
 
         long result = service.countSafeRolls(grid);
