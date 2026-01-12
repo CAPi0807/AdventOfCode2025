@@ -1,5 +1,67 @@
 # Advent of Code - Solución Día 01
+```mermaid
+classDiagram
+    direction LR
+    
+    namespace Shared {
+        class Instruction {
+            <<record>>
+            +Direction direction
+            +int amount
+        }
+        class Direction {
+            <<enum>>
+            LEFT
+            RIGHT
+            +fromChar(char) Direction
+            +calculateNewPosition(int, int) int
+        }
+    }
 
+    namespace PartA {
+        class DialA["Dial"] {
+            <<record>>
+            +int position
+            +move(Instruction) Dial
+            +calculateScore() int
+        }
+        class InstructionParser {
+            +parseAll(List~String~) List~Instruction~
+        }
+        class PasswordService {
+            +calculatePassword(int, List~Instruction~) int
+        }
+    }
+
+    namespace PartB {
+        class DialB["Dial"] {
+            <<record>>
+            +int position
+            +turn(Instruction) TurnResult
+        }
+        class TurnResult {
+            <<record>>
+            +Dial newDial
+            +int hitsGenerated
+        }
+        class PasswordServiceB {
+            +calculatePassword(int, List~Instruction~) int
+        }
+    }
+
+    Instruction --> Direction
+    
+    InstructionParser ..> Instruction : creates
+    
+    DialA ..> Instruction : uses
+    PasswordService --> DialA : uses
+    PasswordService ..> Instruction : uses
+
+    DialB ..> Instruction : uses
+    DialB ..> TurnResult : returns
+    PasswordServiceB --> DialB : uses
+    PasswordServiceB ..> Instruction : uses
+```
 ## Introducción y Modelo de Diseño
 Este proyecto resuelve el reto del Día 01 utilizando un modelo de **Arquitectura de Dominio Rico e Inmutable**. A diferencia de un modelo anémico donde los objetos solo guardan datos, aquí el objeto `Dial` posee comportamiento.
 
@@ -181,66 +243,3 @@ El uso de `TurnResult` permite que el sistema crezca en complejidad sin sacrific
 
 Aquí se muestra la estructura de clases y sus relaciones para ambas partes del desafío:
 
-```mermaid
-classDiagram
-    direction LR
-    
-    namespace Shared {
-        class Instruction {
-            <<record>>
-            +Direction direction
-            +int amount
-        }
-        class Direction {
-            <<enum>>
-            LEFT
-            RIGHT
-            +fromChar(char) Direction
-            +calculateNewPosition(int, int) int
-        }
-    }
-
-    namespace PartA {
-        class DialA["Dial"] {
-            <<record>>
-            +int position
-            +move(Instruction) Dial
-            +calculateScore() int
-        }
-        class InstructionParser {
-            +parseAll(List~String~) List~Instruction~
-        }
-        class PasswordService {
-            +calculatePassword(int, List~Instruction~) int
-        }
-    }
-
-    namespace PartB {
-        class DialB["Dial"] {
-            <<record>>
-            +int position
-            +turn(Instruction) TurnResult
-        }
-        class TurnResult {
-            <<record>>
-            +Dial newDial
-            +int hitsGenerated
-        }
-        class PasswordServiceB {
-            +calculatePassword(int, List~Instruction~) int
-        }
-    }
-
-    Instruction --> Direction
-    
-    InstructionParser ..> Instruction : creates
-    
-    DialA ..> Instruction : uses
-    PasswordService --> DialA : uses
-    PasswordService ..> Instruction : uses
-
-    DialB ..> Instruction : uses
-    DialB ..> TurnResult : returns
-    PasswordServiceB --> DialB : uses
-    PasswordServiceB ..> Instruction : uses
-```
