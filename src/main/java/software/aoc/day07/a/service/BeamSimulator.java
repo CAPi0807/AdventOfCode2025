@@ -18,46 +18,37 @@ public class BeamSimulator {
     }
 
     public long simulateAndCountSplits() {
-        // 1. Estado Inicial
+
         int startCol = grid.findStartColumn();
         Set<Integer> activeColumns = Set.of(startCol);
 
         long totalSplits = 0;
 
-        // 2. Bucle de Gravedad (Fila a Fila)
+        // Bucle de Gravedad (Fila a Fila)
         for (int row = 0; row < grid.height(); row++) {
 
             Set<Integer> nextColumns = new HashSet<>();
 
             for (int col : activeColumns) {
-                // a. Obtener celda
+                // Obtener celda
                 char cell = grid.getCell(row, col);
 
-                // b. Calcular física
                 InteractionResult result = physics.interact(cell);
 
-                // c. Actualizar contadores
                 if (result.isSplit()) {
                     totalSplits++;
                 }
 
-                // d. Calcular siguientes posiciones
+                // Calcular siguientes posiciones
                 for (int offset : result.nextColumnOffsets()) {
                     int nextCol = col + offset;
-                    // Solo añadimos si cae dentro del mapa (Validación de límites)
-                    if (!grid.isOutOfBounds(row + 1, nextCol)) {
-                        nextColumns.add(nextCol);
-                    }
+                    nextColumns.add(nextCol);
                 }
             }
 
-            // e. Evolucionar estado
             activeColumns = nextColumns;
 
-            // Optimización
-            if (activeColumns.isEmpty()) break;
         }
-
         return totalSplits;
     }
 }

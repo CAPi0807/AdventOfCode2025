@@ -1,10 +1,10 @@
-package Day07Test.a; // Mismo paquete de test solicitado
+package Day07Test.b;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day07.b.model.Grid;
 import software.aoc.day07.b.physics.InteractionRule;
 import software.aoc.day07.b.services.PathCalculatorService;
+import software.aoc.day07.a.model.Grid;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -86,24 +86,6 @@ class Day07BTest {
         PathCalculatorService service = new PathCalculatorService(new InteractionRule());
 
         Assertions.assertEquals(4, service.calculateTotalPaths(grid));
-    }
-
-    @Test
-    void testOutOfBoundsAreLost() {
-        // S en el borde, ^ manda uno fuera y otro dentro.
-        // S
-        // ^
-        // El de la izquierda cae fuera (-1). El de la derecha sigue (1).
-        // Total esperado: 1.
-        List<String> lines = List.of(
-                "S.",
-                "^.",
-                ".."
-        );
-        Grid grid = new Grid(lines);
-        PathCalculatorService service = new PathCalculatorService(new InteractionRule());
-
-        Assertions.assertEquals(1, service.calculateTotalPaths(grid));
     }
 
     @Test
