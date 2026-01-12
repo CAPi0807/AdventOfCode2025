@@ -43,7 +43,7 @@ Este diseño se basa en el fundamento de la **Abstracción**, ocultando la compl
 ## 2. El Dominio: Inteligencia en `NumericRange`
 El objeto `NumericRange` ha evolucionado para incluir capacidades de auto-gestión:
 - **`overlapsOrTouches`**: Una función lógica que detecta si un rango colisiona con otro o si son correlativos (ej: `[1-5]` toca a `[6-10]`).
-- **`merge`**: Un método que genera un **nuevo rango** unificado. Al ser un Record, garantizamos la inmutabilidad: no modificamos los rangos originales, creamos una representación nueva y única[cite: 96].
+- **`merge`**: Un método que genera un **nuevo rango** unificado. Al ser un Record, garantizamos la inmutabilidad: no modificamos los rangos originales, creamos una representación nueva y única.
 - **Ordenamiento Natural**: Implementa `Comparable` para permitir que el sistema organice los rangos por su punto de inicio, lo cual es vital para el algoritmo de consolidación.
 
 

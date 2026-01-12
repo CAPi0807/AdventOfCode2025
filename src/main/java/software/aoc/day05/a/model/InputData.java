@@ -1,6 +1,4 @@
-package software.aoc.day05.a;
-
-import software.aoc.day05.a.model.NumericRange;
+package software.aoc.day05.a.model;
 
 import java.util.List;
 

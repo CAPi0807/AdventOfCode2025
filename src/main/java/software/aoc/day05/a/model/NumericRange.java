@@ -3,7 +3,7 @@ package software.aoc.day05.a.model;
 public record NumericRange(long start, long end) {
 
     public NumericRange {
-        if (start > end) {
+        if (start > end) {      //De nuevo, por si las moscas
             throw new IllegalArgumentException("Start cannot be greater than end");
         }
     }

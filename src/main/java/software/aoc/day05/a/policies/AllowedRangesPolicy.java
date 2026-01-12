@@ -9,9 +9,8 @@ public class AllowedRangesPolicy implements ValidationPolicy {
 
     private final List<NumericRange> allowedRanges;
 
-    // Copia defensiva o uso de List.copyOf para garantizar inmutabilidad
     public AllowedRangesPolicy(List<NumericRange> ranges) {
-        this.allowedRanges = List.copyOf(ranges);
+        this.allowedRanges = List.copyOf(ranges); // La copia me da seguridad
     }
 
     @Override

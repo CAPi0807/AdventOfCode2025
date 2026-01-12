@@ -2,7 +2,7 @@ package Day05Test.a;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import software.aoc.day05.a.*;
+import software.aoc.day05.a.model.InputData;
 import software.aoc.day05.a.model.NumericRange;
 import software.aoc.day05.a.model.ValidationPolicy;
 import software.aoc.day05.a.parser.InputParser;
