@@ -1,5 +1,54 @@
 # Advent of Code - Día 02: Suma de Rangos Repetitivos
 
+## Diagrama de Clases UML
+
+```mermaid
+classDiagram
+    direction LR
+
+    namespace Shared {
+        class NumericRange {
+            <<record>>
+            +long start
+            +long end
+            +fromParts(String[]) NumericRange$
+            +stream() LongStream
+        }
+        class NumberPredicate {
+            <<interface>>
+            +test(long) boolean
+        }
+    }
+
+    namespace PartA {
+        class RepetitiveNumberPredicate {
+            +test(long) boolean
+        }
+        class RangeParser {
+            +parse(String) List~NumericRange~
+        }
+        class RangeSumService {
+            -NumberPredicate validator
+            +calculateUniqueSum(List~NumericRange~) long
+        }
+    }
+
+    namespace PartB {
+        class PatternRepetitivePredicate {
+            +test(long) boolean
+        }
+    }
+
+    RepetitiveNumberPredicate ..|> NumberPredicate : implements
+    PatternRepetitivePredicate ..|> NumberPredicate : implements
+    
+    RangeSumService --> NumberPredicate : uses (strategy)
+    RangeSumService ..> NumericRange : uses
+    
+    RangeParser ..> NumericRange : creates
+```
+
+
 ## 1. Introducción y Arquitectura
 En este segundo día, nos enfrentamos a un problema de procesamiento de datos numéricos a gran escala. Trabajamos con un modelo **Stateless** (sin estado).
 
