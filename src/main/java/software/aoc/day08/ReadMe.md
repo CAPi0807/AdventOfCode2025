@@ -29,6 +29,9 @@ Orquesta la creación de aristas (`Edge`) y la unión de componentes.
 - **Bajo Acoplamiento**: Al depender de la interfaz `DistanceStrategy`, el servicio tiene pocas interdependencias con la implementación matemática concreta.
 - **Uso de `DisjointSet`**: Delega la complejidad de la gestión de grafos a una clase especializada, mejorando la legibilidad.
 
+### `DisjointSet` (Manejo de sets de nodos) ###
+Es el objeto en el que se convierten los nodos al unirse
+
 ---
 
 # Parte B: Conectividad Global (Kruskal)

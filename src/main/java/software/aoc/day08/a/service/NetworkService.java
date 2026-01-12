@@ -17,13 +17,12 @@ public class NetworkService {
     }
 
     public long calculateCircuitScore(List<Point3D> points, int maxConnections) {
-        // 1. Generar todas las aristas posibles
+
         List<Edge> edges = generateAllEdges(points);
 
-        // 2. Ordenar por distancia (menor a mayor)
         edges.sort(Edge::compareTo);
 
-        // 3. Conectar componentes
+        // Conectar componentes
         DisjointSet dsu = new DisjointSet(points.size());
         int limit = Math.min(edges.size(), maxConnections);
 
@@ -32,7 +31,6 @@ public class NetworkService {
             dsu.union(edge.nodeIndexA(), edge.nodeIndexB());
         }
 
-        // 4. Calcular Score (Top 3 productos)
         return calculateScore(dsu.getComponentSizes());
     }
 
