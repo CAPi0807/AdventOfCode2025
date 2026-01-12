@@ -1,9 +1,10 @@
-package software.aoc.day08.b;
+package software.aoc.day08.b.service;
 
 import software.aoc.day08.a.model.DistanceStrategy;
 import software.aoc.day08.a.model.Edge;
 import software.aoc.day08.a.strategies.EuclideanStrategy;
 import software.aoc.day08.a.model.Point3D;
+import software.aoc.day08.b.model.DisjointSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +24,14 @@ public class CircuitCompletionService {
     public long findCriticalConnectionValue(List<Point3D> points) {
         if (points.size() < 2) throw new IllegalArgumentException("Need at least 2 points");
 
-        // 1. Generar todas las aristas
         List<Edge> edges = generateAllEdges(points);
 
-        // 2. Ordenar por peso (distancia)
         edges.sort(Edge::compareTo);
 
-        // 3. Inicializar DSU
+        // Inicializar DS
         DisjointSet dsu = new DisjointSet(points.size());
 
-        // 4. Bucle principal de Kruskal
+        // Bucle principal de Kruskal
         for (Edge edge : edges) {
             boolean merged = dsu.union(edge.nodeIndexA(), edge.nodeIndexB());
 

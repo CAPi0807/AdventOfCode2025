@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import software.aoc.day08.a.parser.CoordinateParser;
 import software.aoc.day08.a.strategies.EuclideanStrategy;
 import software.aoc.day08.a.model.Point3D;
-import software.aoc.day08.b.*;
+import software.aoc.day08.b.service.CircuitCompletionService;
 
 import java.io.IOException;
 import java.nio.file.Files;

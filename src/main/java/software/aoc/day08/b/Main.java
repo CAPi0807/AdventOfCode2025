@@ -8,6 +8,7 @@ import java.util.List;
 import software.aoc.day08.a.strategies.EuclideanStrategy;
 import software.aoc.day08.a.model.Point3D;
 import software.aoc.day08.a.parser.CoordinateParser;
+import software.aoc.day08.b.service.CircuitCompletionService;
 
 public class Main {
 
