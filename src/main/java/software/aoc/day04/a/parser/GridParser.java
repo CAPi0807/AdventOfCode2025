@@ -1,4 +1,6 @@
-package software.aoc.day04.a.model;
+package software.aoc.day04.a.parser;
+
+import software.aoc.day04.a.model.Grid;
 
 import java.util.List;
 

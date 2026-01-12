@@ -3,7 +3,7 @@ package Day04Test.b;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import software.aoc.day04.a.model.Grid;
-import software.aoc.day04.a.model.GridParser;
+import software.aoc.day04.a.parser.GridParser;
 import software.aoc.day04.a.model.Position;
 import software.aoc.day04.b.model.SelectionRule;
 import software.aoc.day04.b.model.SimulationResult;

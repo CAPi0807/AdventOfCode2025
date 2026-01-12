@@ -94,6 +94,6 @@ class RangeTest {
         long result = service.calculateUniqueSum(ranges);
 
         System.out.println("Integration Test Result Day02: " + result);
-        Assertions.assertTrue(result > 0);
+        Assertions.assertEquals(1227775554, result);
     }
 }

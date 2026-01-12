@@ -1,7 +1,7 @@
 package software.aoc.day04.b;
 
 import software.aoc.day04.a.model.Grid;
-import software.aoc.day04.a.model.GridParser;
+import software.aoc.day04.a.parser.GridParser;
 import software.aoc.day04.b.model.SelectionRule;
 import software.aoc.day04.b.model.SimulationResult;
 import software.aoc.day04.b.model.UnstableRollRule;

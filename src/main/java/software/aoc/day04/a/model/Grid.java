@@ -11,8 +11,8 @@ public final class Grid {
     private final int rows;
     private final int cols;
 
-    // Constructor privado: solo se puede crear desde GridParser o internamente
-    Grid(char[][] data) {
+
+    public Grid(char[][] data) {
         this.rows = data.length;
         this.cols = data.length > 0 ? data[0].length : 0;
         // Copia defensiva para garantizar inmutabilidad
