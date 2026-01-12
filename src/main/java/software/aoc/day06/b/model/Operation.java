@@ -22,11 +22,6 @@ public enum Operation {
         return identity;
     }
 
-    /**
-     * Regla de negocio crítica:
-     * Si la "firma" de operadores del bloque contiene un '*', todo el bloque es multiplicación.
-     * En caso contrario, es suma.
-     */
     public static Operation determineFromSignature(String signature) {
         return signature.contains("*") ? MULTIPLY : SUM;
     }

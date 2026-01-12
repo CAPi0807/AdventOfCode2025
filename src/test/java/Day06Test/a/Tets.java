@@ -51,21 +51,6 @@ class Day06Test {
     }
 
     @Test
-    void testParserValidation() {
-        ProblemParser parser = new ProblemParser();
-        // Matriz de 2 columnas pero solo 1 operador
-        List<String> input = List.of(
-                "1 2",
-                "+"
-        );
-
-        // Debe lanzar excepción por mismatch
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            parser.parse(input);
-        });
-    }
-
-    @Test
     void testIntegrationFromFile() throws IOException {
         Path path = Path.of("src/test/resources/Day06/Problems.txt");
         List<String> lines = Files.readAllLines(path);

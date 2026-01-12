@@ -12,11 +12,11 @@ public class ProblemParser {
     public ProblemSchema parse(List<String> lines) {
         int operatorLineIndex = findOperatorLineIndex(lines);
 
-        // 1. Parsear Matriz (líneas anteriores a los operadores)
+        // Parseo líneas anteriores a los operadores
         List<String> matrixLines = lines.subList(0, operatorLineIndex);
         Matrix matrix = parseMatrix(matrixLines);
 
-        // 2. Parsear Operadores
+        // Ahora los Operadores
         String operatorString = lines.get(operatorLineIndex);
         List<Operator> operators = parseOperators(operatorString);
 
@@ -25,7 +25,7 @@ public class ProblemParser {
 
     private int findOperatorLineIndex(List<String> lines) {
         for (int i = 0; i < lines.size(); i++) {
-            // Usamos el método estático del Enum para detectar la línea
+            // Usamos el método estático del Enum para detectar la línea y devolvemos el índice donde inician los operadores
             if (lines.get(i).chars().anyMatch(Operator::isOperatorChar)) {
                 return i;
             }

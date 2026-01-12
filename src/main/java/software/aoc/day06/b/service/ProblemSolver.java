@@ -18,15 +18,14 @@ public class ProblemSolver {
             return 0;
         }
 
-        // 1. Separación de inputs (Data vs Operators)
+        // Separación de inputs
         int lastIndex = lines.size() - 1;
         List<String> dataLines = lines.subList(0, lastIndex);
         String operatorLine = lines.get(lastIndex);
 
-        // 2. Parsing inteligente (Scanner)
+        // Parsing
         List<NumberBlock> blocks = scanner.scanBlocks(dataLines, operatorLine);
 
-        // 3. Cálculo y Reducción
         return blocks.stream()
                 .mapToLong(NumberBlock::calculateResult)
                 .sum();
