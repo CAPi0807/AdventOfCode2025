@@ -1,7 +1,6 @@
 package software.aoc.day09.a.model;
 
 public record Point(int x, int y) {
-    public Point {}
 
     public static Point parse(String line) {
         String[] parts = line.split(",");

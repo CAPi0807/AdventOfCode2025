@@ -14,7 +14,6 @@ public class CompressedGrid {
 
     public CompressedGrid(List<Point> vertices, RayCaster rayCaster) {
         // 1. Compresión de coordenadas (Distinct + Sorted)
-        // Nota: Usamos int[] asumiendo que caben, si el dominio A usara long, adaptaríamos aquí.
         this.xCoords = vertices.stream().mapToInt(Point::x).distinct().sorted().toArray();
         this.yCoords = vertices.stream().mapToInt(Point::y).distinct().sorted().toArray();
 
@@ -39,7 +38,6 @@ public class CompressedGrid {
     }
 
     public boolean fullyCovers(BoundingBox box) {
-        // Helpers locales para obtener límites del BoundingBox (reutilizado de A)
         int minX = Math.min(box.p1().x(), box.p2().x());
         int maxX = Math.max(box.p1().x(), box.p2().x());
         int minY = Math.min(box.p1().y(), box.p2().y());

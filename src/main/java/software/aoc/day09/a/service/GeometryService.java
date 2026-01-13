@@ -14,9 +14,6 @@ public class GeometryService {
     }
 
     public long calculateLargestRectangle(List<Point> points) {
-        if (points == null || points.size() < 2) {
-            return 0;
-        }
         return strategy.findMaxArea(points);
     }
 }

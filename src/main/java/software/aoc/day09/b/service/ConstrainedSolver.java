@@ -17,11 +17,10 @@ public class ConstrainedSolver {
             return new BoundingBox(new Point(0,0), new Point(0,0));
         }
 
-        // 1. Preparar infraestructura
+        // Preparo infraestructura
         RayCaster rayCaster = new RayCaster();
         CompressedGrid grid = new CompressedGrid(vertices, rayCaster);
 
-        // 2. Generar y filtrar (Paralelizable por rendimiento)
         return generateCandidates(vertices)
                 .parallel()
                 .filter(grid::fullyCovers)

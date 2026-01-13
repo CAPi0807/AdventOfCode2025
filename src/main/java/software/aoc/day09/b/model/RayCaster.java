@@ -5,10 +5,10 @@ import java.util.List;
 
 public class RayCaster {
 
-    /**
-     * Determina si un punto (x, y) está dentro del polígono definido por los vértices.
-     * Utiliza el algoritmo de Ray Casting (Even-Odd rule).
-     */
+
+     // Determina si un punto (x, y) está dentro del polígono definido por los vértices.
+     // Utiliza el algoritmo de Ray Casting (Even-Odd rule).
+
     public boolean isPointInside(double x, double y, List<Point> vertices) {
         boolean inside = false;
         int n = vertices.size();
