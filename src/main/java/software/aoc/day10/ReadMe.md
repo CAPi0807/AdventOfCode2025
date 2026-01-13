@@ -1,75 +1,101 @@
 # Advent of Code - Día 10: Sistemas de Ecuaciones en la Maquinaria
 
-## Parte A: El Campo de Galois GF(2)
+## Mapa de la Solución (UML)
 
-### 1. El Problema y la Física Binaria
-En la primera fase, cada botón conmuta el estado de las luces (encendido/apagado).  
-Al tratarse de un sistema donde presionar dos veces un botón anula su efecto  
-\[
-1 + 1 = 0
-\]
-el problema se modela matemáticamente como un **sistema de ecuaciones lineales sobre el cuerpo finito GF(2)**.
+```mermaid
+classDiagram
+    class Machine {
+        +List~Integer~ targetState
+        +List~List~Integer~~ buttons
+        +List~Integer~ voltageTargets
+    }
+    class MachineParser {
+        +parse(line) Machine
+    }
+    class MachineSolver {
+        +solveTotalPresses(machines)
+    }
+    class GaussianSolver {
+        +solveMinimumPresses(matrix, target)
+    }
+    class JoltageSolver {
+        +solveTotalVoltagePresses(machines)
+    }
+    class LinearOptimizer {
+        +solveMinPresses(matrix, target)
+    }
 
-Cada luz representa una ecuación, cada botón una variable, y la matriz de incidencia describe qué botón afecta a qué luz. Es muy complejo así que por ahora nos centramos en la estructura y no del código.
+    MachineParser ..> Machine : Creates
+    MachineSolver --> GaussianSolver : Uses
+    MachineSolver ..> Machine : Reads
+    JoltageSolver --> LinearOptimizer : Uses
+    JoltageSolver ..> Machine : Reads
+```
 
----
-
-### 2. El Motor Matemático: `GaussianSolver`
-Para encontrar el **número mínimo de pulsaciones**, se implementa una Eliminación Gaussiana adaptada a GF(2):
-
-- **Forma Escalonada**  
-  La matriz se transforma para identificar variables pivote y variables libres.
-
-- **Minimización del Peso de Hamming**  
-  Dado que el sistema puede tener múltiples soluciones (por la existencia de variables libres), se exploran combinatoriamente las \(2^k\) posibilidades para elegir la solución con el menor número de bits activos, es decir, el menor número de pulsaciones.
-
-- **Operaciones XOR**  
-  En GF(2), la suma y la resta son equivalentes a la operación bitwise XOR, lo que permite una ejecución extremadamente rápida y eficiente.
-
----
-
-## Parte B: Optimización Lineal Entera
-
-### 1. Evolución del Modelo: Voltajes Acumulativos
-En la segunda parte, los botones ya no conmutan luces, sino que **incrementan voltajes**.  
-Esto rompe la lógica binaria y traslada el problema a un sistema de ecuaciones lineales sobre **números enteros positivos**.
-
-Ya no buscamos si una luz está encendida o apagada, sino **cuántas veces** debemos pulsar cada botón para alcanzar un voltaje objetivo exacto.
+Este proyecto aborda la resolución de sistemas de ecuaciones lineales desde dos perspectivas matemáticas distintas (Cuerpos Finitos y Optimización Entera), manteniendo una arquitectura limpia y modular. Como el cálculo de las soluciones es complejo y largo, aquí me centaré más en la función general, estructura y principios aplicados.
 
 ---
 
-### 2. El Optimizador: `LinearOptimizer`
-La resolución requiere un enfoque más sofisticado, combinando álgebra lineal clásica con búsqueda discreta:
+## Estructura y Función de Archivos
 
-- **Reducción Gauss-Jordan (RREF)**  
-  El sistema se lleva a su forma reducida por filas utilizando aritmética de punto flotante con control explícito de precisión mediante un valor `EPSILON`.
+### 1. Núcleo Común (Modelado e Infraestructura)
 
-- **Búsqueda de Soluciones Enteras**  
-  Identificadas las variables libres, el sistema realiza una búsqueda exhaustiva pero acotada para encontrar combinaciones que produzcan soluciones enteras válidas.
+#### `Machine.java` (Modelo)
+*   **Función**: Representa el estado inmutable de una máquina (luces, botones, objetivos de voltaje).
+*   **Estructura**: Implementado como un Java `record`.
+*   **Principios**:
+    *   **Inmutabilidad**: Facilita el paso de datos entre capas y la ejecución segura en paralelo.
+    *   **Data Carrier**: Actúa puramente como contenedor de datos sin lógica de negocio compleja.
 
-- **Límite Dinámico de Búsqueda**  
-  Se calcula un `searchLimit` basado en el voltaje objetivo máximo.  
-  Esto garantiza que el algoritmo termine rápidamente al descartar combinaciones físicamente imposibles.
+#### `MachineParser.java` (Entrada)
+*   **Función**: Interpreta las líneas de texto crudo y construye objetos `Machine`.
+*   **Estructura**: Utiliza Expresiones Regulares (`Pattern`, `Matcher`) para extraer configuraciones complejas.
+*   **Principios**:
+    *   **Single Responsibility Principle (SRP)**: Aísla la lógica de *parsing* del resto del sistema. Si el formato de entrada cambia, solo esta clase debe modificarse.
+
+---
+
+### 2. Parte A: Sistemas Binarios (GF(2))
+
+En esta fase, los botones actúan como interruptores (XOR), modelados como un sistema sobre el cuerpo finito de 2 elementos.
+
+#### `MachineSolver.java` (Orquestador A)
+*   **Función**: Transforma el objeto de dominio `Machine` en una matriz de adyacencia binaria y delega la resolución matemática.
+*   **Estructura**: Construye la matriz $Ax=b$ donde las filas son luces y las columnas son botones.
+
+#### `GaussianSolver.java` (Motor Matemático A)
+*   **Función**: Resuelve sistemas de ecuaciones lineales sobre GF(2) minimizando el número de botones pulsados.
+*   **Estructura**:
+    *   **Eliminación Gaussiana**: Convierte la matriz a su forma escalonada usando operaciones XOR.
+    *   **Minimización de Hamming**: Explora las variables libres para encontrar la solución con menor "peso" (mínimo número de 1s).
+*   **Principios**:
+    *   **Alta Cohesión**: Encapsula exclusivamente algoritmos de álgebra lineal sobre cuerpos finitos.
+
+---
+
+### 3. Parte B: Optimización Entera
+
+En esta fase, el comportamiento cambia a acumulativo (suma de enteros), requiriendo un enfoque algebraico diferente.
+
+#### `JoltageSolver.java` (Orquestador B)
+*   **Función**: Adapta el problema de voltajes a un sistema de ecuaciones lineales reales.
+*   **Estructura**: Mapea los incrementos de voltaje a una matriz de coeficientes `duble[][]`.
+
+#### `LinearOptimizer.java` (Motor Matemático B)
+*   **Función**: Encuentra soluciones enteras no negativas para sistemas determinados o indeterminados.
+*   **Estructura**:
+    *   **Gauss-Jordan (RREF)**: Reduce el sistema utilizando aritmética de punto flotante con precisión controlada (`EPSILON`).
+    *   **Búsqueda Acotada**: Utiliza un **Límite Dinámico** basado en el voltaje objetivo máximo para podar el espacio de búsqueda de las variables libres, garantizando terminación eficiente.
+*   **Principios**:
+    *   **Open/Closed (OCP)**: Permite introducir un nuevo motor de resolución complejo sin tocar la lógica de parsing o el modelo original.
 
 ---
 
 ## Principios de Ingeniería Aplicados
 
-- **Single Responsibility Principle (SRP)**  
-  El `MachineParser` es el único responsable de interpretar el formato de texto complejo mediante expresiones regulares robustas.  
-  Los *solvers* operan exclusivamente sobre matrices y no conocen el origen de los datos.
-
-- **Open/Closed Principle (OCP)**  
-  La infraestructura de la Parte A se extiende para la Parte B reutilizando el modelo de datos y el parser, pero inyectando un nuevo motor matemático (`LinearOptimizer`) sin modificar la lógica existente.
-
-- **Dependency Inversion Principle (DIP)**  
-  Los controladores principales dependen de abstracciones matemáticas.  
-  Esto permite sustituir el algoritmo de búsqueda por métodos más avanzados (como Simplex o Branch and Bound) sin afectar al resto del sistema.
-
-- **Inmutabilidad**  
-  El uso de *Java Records* garantiza que la configuración de cada máquina sea tratada como un *snapshot* inmutable, facilitando la paralelización del procesamiento de múltiples máquinas.
-
----
-
-## Conclusión
-Este enfoque transforma un puzzle de lógica en un **problema de computación científica**, demostrando cómo los fundamentos del álgebra lineal —desde cuerpos finitos hasta optimización entera— permiten resolver desafíos complejos de forma determinista, eficiente y extensible.
+| Principio | Aplicación en el Código |
+| :--- | :--- |
+| **SRP (Responsabilidad Única)** | `MachineParser` solo parsea. `GaussianSolver` solo hace matemáticas binarias. `LinearOptimizer` solo optimiza enteros. |
+| **OCP (Abierto/Cerrado)** | El sistema escaló de la Parte A a la B añadiendo nuevas clases solvers (`JoltageSolver`, `LinearOptimizer`) sin modificar el modelo `Machine` ni romper la lógica existente. |
+| **Inmutabilidad** | El uso de `record` para `Machine` previene efectos secundarios indeseados y simplifica el razonamiento sobre el estado. |
+| **Separación de Intereses** | La lógica de "Negocio" (Botones, Luces) está separada de la lógica "Matemática" (Matrices, Vectores, Pivotaje). |
