@@ -2,10 +2,10 @@ package software.aoc.day10.a.service;
 
 import java.util.Arrays;
 
-/**
- * Resuelve sistemas de ecuaciones lineales sobre GF(2).
- * Minimiza el peso de Hamming (número de 1s) en la solución.
- */
+
+  //Resuelve sistemas de ecuaciones lineales sobre GF(2).
+  //Minimiza el peso de Hamming (número de 1s) en la solución.
+
 public class GaussianSolver {
 
     // Retorna -1 si no hay solución
@@ -45,12 +45,12 @@ public class GaussianSolver {
             }
         }
 
-        // 2. Verificar consistencia (0 = 1)
+        // Verificar consistencia (0 = 1)
         for (int i = pivotRow; i < rows; i++) {
             if (augmented[i][cols] == 1) return -1; // Sistema imposible
         }
 
-        // 3. Resolver minimizando variables libres
+
         // Las columnas que NO son pivotes son variables libres.
         // Recursivamente probamos 0 y 1 para las variables libres para encontrar el mínimo.
         return findMinWeightSolution(augmented, pivotColIndex, pivotRow, cols);

@@ -3,11 +3,11 @@ package software.aoc.day10.b.service;
 import java.util.List;
 import software.aoc.day10.a.model.Machine;
 
-public class Day10BSolver {
+public class JoltageSolver {
 
     private final LinearOptimizer optimizer;
 
-    public Day10BSolver() {
+    public JoltageSolver() {
         this.optimizer = new LinearOptimizer();
     }
 

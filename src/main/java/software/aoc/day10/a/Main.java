@@ -2,7 +2,7 @@ package software.aoc.day10.a;
 
 import software.aoc.day10.a.model.Machine;
 import software.aoc.day10.a.parser.MachineParser;
-import software.aoc.day10.a.service.Day10Solver;
+import software.aoc.day10.a.service.MachineSolver;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         MachineParser parser = new MachineParser();
-        Day10Solver solver = new Day10Solver();
+        MachineSolver solver = new MachineSolver();
 
         Path path = Path.of("src/main/resources/Day10/Machines.txt");
 

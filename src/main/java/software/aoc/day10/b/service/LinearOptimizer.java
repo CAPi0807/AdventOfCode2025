@@ -12,13 +12,13 @@ public class LinearOptimizer {
         int rows = matrix.length;
         int cols = matrix[0].length;
 
-        // 1. Calcular límite superior seguro para búsqueda (basado en el target más alto)
+        // Calcular límite superior seguro para búsqueda (basado en el target más alto)
         // Como los coeficientes son positivos, ninguna variable puede exceder el max(target).
         double maxTarget = 0;
         for (double v : target) maxTarget = Math.max(maxTarget, v);
         int searchLimit = (int) maxTarget + 2;
 
-        // 2. Gauss-Jordan para RREF
+        // Gauss-Jordan para RREF
         int pivotRow = 0;
         int[] pivotColByRow = new int[rows];
         Arrays.fill(pivotColByRow, -1);
@@ -51,7 +51,7 @@ public class LinearOptimizer {
             }
         }
 
-        // 3. Verificar consistencia básica
+        // Verificar consistencia básica
         for (int i = pivotRow; i < rows; i++) {
             if (Math.abs(target[i]) > EPSILON) return -1;
         }
@@ -59,7 +59,7 @@ public class LinearOptimizer {
         List<Integer> freeIndices = new ArrayList<>();
         for (int j = 0; j < cols; j++) if (isFreeVar[j]) freeIndices.add(j);
 
-        // 4. Optimización con límite dinámico
+        // Optimización con límite dinámico
         return findBestIntegerSolution(matrix, target, pivotColByRow, pivotRow, freeIndices, cols, searchLimit);
     }
 

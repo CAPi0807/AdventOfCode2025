@@ -4,11 +4,11 @@ import software.aoc.day10.a.model.Machine;
 
 import java.util.List;
 
-public class Day10Solver {
+public class MachineSolver {
 
     private final GaussianSolver mathSolver;
 
-    public Day10Solver() {
+    public MachineSolver() {
         this.mathSolver = new GaussianSolver();
     }
 

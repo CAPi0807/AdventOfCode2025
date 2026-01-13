@@ -7,13 +7,13 @@ import java.util.List;
 
 import software.aoc.day10.a.model.Machine;
 import software.aoc.day10.a.parser.MachineParser;
-import software.aoc.day10.b.service.Day10BSolver;
+import software.aoc.day10.b.service.JoltageSolver;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
         MachineParser parser = new MachineParser();
-        Day10BSolver solver = new Day10BSolver();
+        JoltageSolver solver = new JoltageSolver();
 
         Path path = Path.of("src/main/resources/Day10/Machines.txt");
 

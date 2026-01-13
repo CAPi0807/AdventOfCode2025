@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import software.aoc.day10.a.model.Machine;
 import software.aoc.day10.a.parser.MachineParser;
-import software.aoc.day10.a.service.Day10Solver;
+import software.aoc.day10.a.service.MachineSolver;
 import software.aoc.day10.a.service.GaussianSolver;
 
 import java.io.IOException;
@@ -136,7 +136,7 @@ class Day10Test {
 
         Machine impossibleMachine = new Machine(targetState, buttons, List.of());
 
-        Day10Solver solver = new Day10Solver();
+        MachineSolver solver = new MachineSolver();
 
         // Como es una lista de 1 máquina y es imposible, el resultado de la suma debe ser 0
         // (ya que filter elimina los -1).
@@ -163,7 +163,7 @@ class Day10Test {
         Files.writeString(tempPath, content);
 
         MachineParser parser = new MachineParser();
-        Day10Solver solver = new Day10Solver();
+        MachineSolver solver = new MachineSolver();
 
         try (var lines = Files.lines(tempPath)) {
             List<Machine> machines = lines

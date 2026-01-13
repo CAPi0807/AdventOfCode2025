@@ -3,7 +3,7 @@ package Day10Test.b;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import software.aoc.day10.a.model.Machine;
-import software.aoc.day10.b.service.Day10BSolver;
+import software.aoc.day10.b.service.JoltageSolver;
 import software.aoc.day10.b.service.LinearOptimizer;
 
 import java.util.List;
@@ -97,7 +97,7 @@ class Day10BTest {
         // 1*x = 20 -> Contradicción.
 
         Machine machine = new Machine(List.of(), buttonsConflict, voltageTargetsConflict);
-        Day10BSolver solver = new Day10BSolver();
+        JoltageSolver solver = new JoltageSolver();
 
         // solveTotalVoltagePresses filtra los -1 y suma 0
         long result = solver.solveTotalVoltagePresses(List.of(machine));

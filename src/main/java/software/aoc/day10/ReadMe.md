@@ -10,7 +10,7 @@ Al tratarse de un sistema donde presionar dos veces un botón anula su efecto
 \]
 el problema se modela matemáticamente como un **sistema de ecuaciones lineales sobre el cuerpo finito GF(2)**.
 
-Cada luz representa una ecuación, cada botón una variable, y la matriz de incidencia describe qué botón afecta a qué luz.
+Cada luz representa una ecuación, cada botón una variable, y la matriz de incidencia describe qué botón afecta a qué luz. Es muy complejo así que por ahora nos centramos en la estructura y no del código.
 
 ---
 
