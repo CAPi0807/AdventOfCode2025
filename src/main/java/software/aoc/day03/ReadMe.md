@@ -1,5 +1,35 @@
 # Advent of Code Day 03
 
+```mermaid
+classDiagram
+    class Battery {
+        +String sequence
+    }
+    class JoltageStrategy {
+        <<interface>>
+        +calculate(Battery battery) long
+    }
+    class HighestOrderedPairStrategy {
+        +calculate(Battery battery) long
+    }
+    class GreedySelectionStrategy {
+        +calculate(Battery battery) long
+    }
+    class JoltageService {
+        +calculateTotalLoad(List~Battery~ batteries) Long
+    }
+    class BatteryParser {
+        +parse(List~String~ lines) List~Battery~
+    }
+
+    HighestOrderedPairStrategy ..|> JoltageStrategy : Implements
+    GreedySelectionStrategy ..|> JoltageStrategy : Implements
+    JoltageService --> JoltageStrategy : Uses
+    BatteryParser ..> Battery : Creates
+    JoltageStrategy ..> Battery : Uses
+```
+
+
 ## Principios Implementados
 
 ### 1. Single Responsibility Principle (SRP)

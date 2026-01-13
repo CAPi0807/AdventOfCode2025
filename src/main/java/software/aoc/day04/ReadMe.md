@@ -1,5 +1,66 @@
 # Advent of Code - Día 04: Seguridad en el Almacén
 
+```mermaid
+classDiagram
+    class Grid {
+        +char[][] data
+        +isValid(Position p)
+        +get(Position p) char
+        +without(List~Position~ positions) Grid
+    }
+    class Position {
+        +int row
+        +int col
+        +neighbors() List~Position~
+    }
+    class GridParser {
+        +parse(List~String~ lines) Grid
+    }
+    
+    %% Parte A
+    class SelectionRuleA {
+        <<interface>>
+        +matches(Grid g, Position p) bool
+    }
+    class RollSelectionRule {
+        +matches(Grid g, Position p) bool
+    }
+    class WarehouseService {
+        +countSafeRolls(Grid g) long
+    }
+
+    %% Parte B
+    class SelectionRuleB {
+        <<interface>>
+        +findMatches(Grid g) List~Position~
+    }
+    class UnstableRollRule {
+        +findMatches(Grid g) List~Position~
+    }
+    class WarehouseSimulator {
+        +runUntilStable(Grid g) SimulationResult
+    }
+    class SimulationResult {
+        +long removedCount
+        +Grid finalGrid
+    }
+
+    GridParser ..> Grid : Creates
+    Grid ..> Position : Uses
+
+    RollSelectionRule ..|> SelectionRuleA : Implements
+    WarehouseService --> SelectionRuleA : Uses
+    
+    UnstableRollRule ..|> SelectionRuleB : Implements
+    WarehouseSimulator --> SelectionRuleB : Uses
+    WarehouseSimulator ..> SimulationResult : Returns
+    
+    %% Cross-package dependencies
+    UnstableRollRule ..> Grid : Uses
+    UnstableRollRule ..> Position : Uses
+```
+
+
 ## 1. Introducción al Diseño
 
 El reto de hoy consiste en identificar rollos de papel en una cuadrícula que cumplan con ciertos criterios de seguridad basados en su entorno. Hemos diseñado una solución que prioriza el **bajo acoplamiento** y la **alta cohesión**, separando la gestión de la cuadrícula de las reglas que dictan qué rollos son seleccionables.

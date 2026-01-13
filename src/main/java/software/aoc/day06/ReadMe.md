@@ -1,5 +1,70 @@
 # Advent of Code - Día 06: Procesamiento de Matrices con Operadores
 
+```mermaid
+classDiagram
+    %% Part A
+    class Matrix {
+        +List~List~Long~~ rows
+        +get(int row, int col) long
+        +height() int
+        +width() int
+    }
+    class Operator {
+        <<enumeration>>
+        ADD
+        MULTIPLY
+        +apply(long acc, long val) long
+        +identity() long
+        +static fromChar(int c) Operator
+    }
+    class ProblemSchema {
+        +Matrix matrix
+        +List~Operator~ operators
+    }
+    class ProblemParser {
+        +parse(List~String~ lines) ProblemSchema
+    }
+    class ColumnCalculationService {
+        +solve(ProblemSchema schema) long
+    }
+
+    ProblemParser ..> ProblemSchema : Creates
+    ProblemSchema --> Matrix : Contains
+    ProblemSchema --> Operator : Contains
+    ColumnCalculationService --> ProblemSchema : Uses
+    ColumnCalculationService --> Operator : Uses
+
+    %% Part B
+    class Operation {
+        <<enumeration>>
+        SUM
+        MULTIPLY
+        +apply(long a, long b) long
+        +determineFromSignature(String s) Operation
+    }
+    class NumberBlock {
+        +List~Long~ numbers
+        +Operation operation
+        +calculateResult() long
+    }
+    class ParsedColumn {
+        +Optional~Long~ number
+        +char operatorChar
+    }
+    class GridScanner {
+        +scanBlocks(List~String~ data, String opRow) List~NumberBlock~
+    }
+    class ProblemSolver {
+        +solve(List~String~ lines) long
+    }
+
+    GridScanner ..> NumberBlock : Creates
+    GridScanner ..> ParsedColumn : UsesInternal
+    NumberBlock --> Operation : Uses
+    ProblemSolver --> GridScanner : Uses
+    ProblemSolver ..> NumberBlock : Uses
+```
+
 ## 1. Introducción al Diseño
 
 El reto de hoy consiste en resolver una matriz donde cada columna debe ser procesada por un operador específico (suma o multiplicación) definido en una línea aparte. Hemos aplicado un diseño que favorece el **Bajo Acoplamiento**, la **Alta Cohesión** y el **Código Expresivo**, permitiendo que el motor de cálculo sea completamente agnóstico a la operación matemática específica que ejecuta.

@@ -1,5 +1,66 @@
 # Advent of Code - Día 05: Validador de Productos por Rangos
 
+```mermaid
+classDiagram
+    %% Common / Part A
+    class InputData {
+        +List~NumericRange~ ranges
+        +List~Long~ ids
+    }
+    class NumericRange {
+        +long start
+        +long end
+        +boolean contains(long value)
+        +static parse(String line)
+    }
+    class ValidationPolicy {
+        <<interface>>
+        +isValid(long id) boolean
+    }
+    class AllowedRangesPolicy {
+        +isValid(long id) boolean
+    }
+    class InputParser {
+        +parse(List~String~ lines) InputData
+    }
+    class ProductService {
+        +countValidProducts(List~Long~ ids, ValidationPolicy policy) long
+    }
+
+    InputParser ..> InputData : Creates
+    InputParser ..> NumericRange : Uses
+    InputData o-- NumericRange : Contains
+
+    AllowedRangesPolicy ..|> ValidationPolicy : Implements
+    AllowedRangesPolicy o-- NumericRange : Uses
+    ProductService --> ValidationPolicy : Uses
+
+    %% Part B Extensions
+    class NumericRangeB {
+        +long start
+        +long end
+        +overlapsOrTouches(NumericRange other)
+        +merge(NumericRange other)
+        +size()
+    }
+    class RangeMerger {
+        +merge(List~NumericRange~ inputs) List~NumericRange~
+    }
+    class AvailabilityService {
+        +calculateTotalAvailableIDs(List~NumericRange~ ranges) long
+    }
+    class RangeParser {
+        +parse(List~String~ lines) List~NumericRange~
+    }
+
+    AvailabilityService --> RangeMerger : Uses
+    RangeMerger ..> NumericRangeB : Manipulates
+    RangeParser ..> NumericRangeB : Creates
+    
+    %% Note to show NumericRange evolution
+    note for NumericRangeB "Enhanced version in Part B\nwith merge logic and Comparable"
+```
+
 ## 1. Introducción al Diseño
 El reto de hoy implica procesar una lista de identificadores frente a un conjunto de rangos permitidos. Hemos aplicado un diseño que prioriza la **Alta Cohesión**, asegurando que cada componente se enfoque en una única tarea del proceso: interpretar el archivo, definir la regla de validez o ejecutar el conteo final.
 
