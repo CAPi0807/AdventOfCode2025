@@ -144,6 +144,7 @@ Para resolver este formato visual complejo, se ha implementado un `GridScanner` 
 Esta clase es el núcleo de la infraestructura y refleja una alta **Cohesión**:
 
 * **Extracción de Columnas**: A través de `extractColumn`, el sistema recorre verticalmente cada índice, recolectando dígitos para formar números completos.
+* **Patrón Iterator**: He implementado el barrido vertical utilizando una clase interna `ColumnIterator` que implementa `Iterator<ParsedColumn>`. Esto encapsula la lógica de travesía, permitiendo que el bucle principal se centre en la construcción de bloques (`hasNext`, `next`) sin conocer los detalles de cómo se extraen las columnas de la lista de strings.
 * **Detección de Bloques**: El escáner mantiene un estado temporal. Cuando detecta una columna vacía, finaliza el bloque actual y lo encapsula en un `NumberBlock`.
 * **Robustez**: Maneja longitudes de fila desiguales y huecos, garantizando que solo datos válidos se conviertan en entidades de dominio.
 
