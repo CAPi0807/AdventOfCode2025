@@ -2,6 +2,102 @@
 
 Este proyecto implementa una solución modular para el procesamiento de coordenadas y análisis de grafos en 3D. El diseño sigue principios de ingeniería de software robustos para garantizar la mantenibilidad y la extensibilidad.
 
+
+---
+
+## Class Diagram
+
+```mermaid
+classDiagram
+    class Main {
+        +main(String[] args) void
+    }
+
+    class Point3D {
+        +x() int
+        +y() int
+        +z() int
+        +parse(String line) Point3D
+    }
+
+    class CoordinateParser {
+        +parse(List~String~ lines) List~Point3D~
+    }
+
+    class DistanceStrategy {
+        <<interface>>
+        +calculate(Point3D a, Point3D b) double
+    }
+
+    class EuclideanStrategy {
+        +calculate(Point3D a, Point3D b) double
+    }
+
+    class Edge {
+        +nodeIndexA() int
+        +nodeIndexB() int
+        +weight() double
+        +compareTo(Edge other) int
+    }
+
+    class DisjointSet {
+        +find(int i) int
+        +union(int i, int j) void
+        +getComponentSizes() List~Integer~
+    }
+
+    class NetworkService {
+        +calculateCircuitScore(List~Point3D~ points, int maxConnections) long
+    }
+
+    class MainB {
+        +main(String[] args) void
+    }
+
+    class DisjointSetB {
+        +find(int i) int
+        +union(int i, int j) boolean
+        +getComponentCount() int
+    }
+
+    class CircuitCompletionService {
+        +findCriticalConnectionValue(List~Point3D~ points) long
+    }
+
+    namespace Package_a {
+        class Main
+        class Point3D
+        class CoordinateParser
+        class NetworkService
+        class Edge
+        class DisjointSet
+        class DistanceStrategy
+        class EuclideanStrategy
+    }
+
+    namespace Package_b {
+        class MainB
+        class CircuitCompletionService
+        class DisjointSetB
+    }
+
+    Main ..> CoordinateParser : uses
+    Main ..> NetworkService : uses
+    Main ..> EuclideanStrategy : uses
+    CoordinateParser ..> Point3D : creates
+    NetworkService --> DistanceStrategy : uses
+    NetworkService ..> DisjointSet : uses
+    NetworkService ..> Edge : uses
+    EuclideanStrategy ..|> DistanceStrategy : implements
+    
+    MainB ..> CircuitCompletionService : uses
+    MainB ..> CoordinateParser : uses
+    MainB ..> EuclideanStrategy : uses
+    CircuitCompletionService --> DistanceStrategy : uses
+    CircuitCompletionService ..> DisjointSetB : uses
+    CircuitCompletionService ..> Edge : uses
+```
+
 ---
 
 # Parte A: Agrupación y Puntuación de Circuitos

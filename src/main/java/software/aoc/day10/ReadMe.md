@@ -1,38 +1,76 @@
 # Advent of Code - Día 10: Sistemas de Ecuaciones en la Maquinaria
 
-## Mapa de la Solución (UML)
+
+Este proyecto aborda la resolución de sistemas de ecuaciones lineales desde dos perspectivas matemáticas distintas (Cuerpos Finitos y Optimización Entera), manteniendo una arquitectura limpia y modular. Como el cálculo de las soluciones es complejo y largo, aquí me centaré más en la función general, estructura y principios aplicados.
+
+---
+
+## Class Diagram
 
 ```mermaid
 classDiagram
+    class Main {
+        +main(String[] args) void
+    }
+
     class Machine {
         +List~Integer~ targetState
         +List~List~Integer~~ buttons
         +List~Integer~ voltageTargets
+        +lightCount() int
+        +buttonCount() int
+        +voltageCount() int
     }
+
     class MachineParser {
-        +parse(line) Machine
+        +parse(String line) Machine
     }
+
     class MachineSolver {
-        +solveTotalPresses(machines)
+        +solveTotalPresses(List~Machine~ machines) long
     }
+
     class GaussianSolver {
-        +solveMinimumPresses(matrix, target)
+        +solveMinimumPresses(int[][] matrix, int[] target) int
     }
+
+    class MainB {
+        +main(String[] args) void
+    }
+
     class JoltageSolver {
-        +solveTotalVoltagePresses(machines)
+        +solveTotalVoltagePresses(List~Machine~ machines) long
     }
+
     class LinearOptimizer {
-        +solveMinPresses(matrix, target)
+        +solveMinPresses(double[][] matrix, double[] target) long
     }
 
-    MachineParser ..> Machine : Creates
-    MachineSolver --> GaussianSolver : Uses
-    MachineSolver ..> Machine : Reads
-    JoltageSolver --> LinearOptimizer : Uses
-    JoltageSolver ..> Machine : Reads
-```
+    namespace Package_a {
+        class Main
+        class Machine
+        class MachineParser
+        class MachineSolver
+        class GaussianSolver
+    }
 
-Este proyecto aborda la resolución de sistemas de ecuaciones lineales desde dos perspectivas matemáticas distintas (Cuerpos Finitos y Optimización Entera), manteniendo una arquitectura limpia y modular. Como el cálculo de las soluciones es complejo y largo, aquí me centaré más en la función general, estructura y principios aplicados.
+    namespace Package_b {
+        class MainB
+        class JoltageSolver
+        class LinearOptimizer
+    }
+
+    Main ..> MachineParser : uses
+    Main ..> MachineSolver : uses
+    MachineParser ..> Machine : creates
+    MachineSolver ..> Machine : reads
+    MachineSolver --> GaussianSolver : uses
+
+    MainB ..> MachineParser : uses
+    MainB ..> JoltageSolver : uses
+    JoltageSolver ..> Machine : reads
+    JoltageSolver --> LinearOptimizer : uses
+```
 
 ---
 

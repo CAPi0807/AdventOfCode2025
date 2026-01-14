@@ -15,11 +15,11 @@ public final class Shape {
     // Constructor privado para uso interno (rotaciones)
     private Shape(int id, Set<Coordinate> cells, boolean calculateRotations) {
         this.id = id;
-        this.cells = normalize(cells);
+        this.cells = cells;
         this.height = this.cells.stream().mapToInt(Coordinate::r).max().orElse(0) + 1;
         this.width = this.cells.stream().mapToInt(Coordinate::c).max().orElse(0) + 1;
 
-        // Lazy loading o pre-cálculo de rotaciones solo para la figura base
+        // Pre-cálculo de rotaciones solo para la figura base
         if (calculateRotations) {
             this.uniqueRotations = generateUniqueRotations();
         } else {
@@ -51,29 +51,18 @@ public final class Shape {
         return cells.size();
     }
 
-    /**
-     * Normaliza las coordenadas para que comiencen en (0,0) (top-left).
-     */
-    private Set<Coordinate> normalize(Set<Coordinate> input) {
-        if (input.isEmpty()) return input;
-        int minR = input.stream().mapToInt(Coordinate::r).min().getAsInt();
-        int minC = input.stream().mapToInt(Coordinate::c).min().getAsInt();
-        return input.stream()
-                .map(c -> new Coordinate(c.r() - minR, c.c() - minC))
-                .collect(Collectors.toUnmodifiableSet());
-    }
-
     private List<Shape> generateUniqueRotations() {
-        // Generar las 4 rotaciones posibles y eliminar duplicados (ej. un cuadrado rotado es igual)
+        // Generar las 4 rotaciones posibles y eliminar duplicados
         // Set para evitar duplicados geométricos
         return IntStream.range(0, 4)
                 .mapToObj(this::rotate)
-                .distinct() // Usa equals/hashCode basándose en los sets de celdas normalizadas
+                .distinct()
                 .toList();
     }
 
     private Shape rotate(int times) {
-        if (times == 0) return this;
+        if (times == 0)
+            return this;
         Set<Coordinate> current = this.cells;
         for (int i = 0; i < times; i++) {
             // Rotación 90 grados: (r, c) -> (c, -r)
@@ -86,8 +75,10 @@ public final class Shape {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Shape shape = (Shape) o;
         return cells.equals(shape.cells);
     }

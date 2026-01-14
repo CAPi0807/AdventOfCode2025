@@ -12,8 +12,11 @@ import java.util.regex.Pattern;
 
 public class InputParser {
 
-    public record InputData(Map<Integer, Shape> shapeDefinitions, List<TestCase> testCases) {}
-    public record TestCase(int rows, int cols, List<Shape> shapesToFit) {}
+    public record InputData(Map<Integer, Shape> shapeDefinitions, List<TestCase> testCases) {
+    }
+
+    public record TestCase(int rows, int cols, List<Shape> shapesToFit) {
+    }
 
     public InputData parse(String filePath) throws IOException {
         List<String> lines = Files.readAllLines(Path.of(filePath));
@@ -21,9 +24,7 @@ public class InputParser {
         List<TestCase> testCases = new ArrayList<>();
 
         int i = 0;
-        // 1. Parsear Figuras (hasta encontrar una línea vacía o que empiece con dígitos de dimensiones)
-        // El formato parece ser bloques separados por ids.
-
+        // Parsear Figuras
         while (i < lines.size()) {
             String line = lines.get(i).trim();
             if (line.isEmpty()) {
@@ -43,7 +44,8 @@ public class InputParser {
                 int r = 0;
                 while (i < lines.size()) {
                     String rowStr = lines.get(i);
-                    // Si encontramos una línea vacía o una nueva definición, paramos la figura actual
+                    // Si encontramos una línea vacía o una nueva definición, paramos la figura
+                    // actual
                     if (rowStr.isEmpty() || rowStr.matches("\\d+:.*") || rowStr.matches("\\d+x\\d+:.*")) {
                         break;
                     }
@@ -61,14 +63,11 @@ public class InputParser {
             }
         }
 
-        // 2. Parsear Casos de Prueba (líneas tipo 4x4: 0 0 0 0 2 0)
-        // Estas líneas pueden estar mezcladas o al final.
-        // Re-iteramos o continuamos desde donde quedamos.
-        // Dado que el bucle anterior para en el primer match de test case, podemos seguir.
-
+        // Parsear Casos de Prueba
         for (; i < lines.size(); i++) {
             String line = lines.get(i).trim();
-            if (line.isEmpty()) continue;
+            if (line.isEmpty())
+                continue;
 
             // Regex para "12x5: 1 0 1 0 2 2"
             Pattern pattern = Pattern.compile("(\\d+)x(\\d+):\\s*(.*)");

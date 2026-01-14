@@ -12,12 +12,12 @@ public class Grid {
     }
 
     public boolean canPlace(Shape shape, int r, int c) {
-        // 1. Chequeo de límites del bounding box
+        // Chequeo de límites
         if (r + shape.getHeight() > rows || c + shape.getWidth() > cols) {
             return false;
         }
 
-        // 2. Chequeo de colisión celda por celda
+        // Chequeo de colisión celda por celda
         for (Coordinate cell : shape.getCells()) {
             if (grid[r + cell.r()][c + cell.c()]) {
                 return false; // Colisión detectada

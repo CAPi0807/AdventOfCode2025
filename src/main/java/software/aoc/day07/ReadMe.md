@@ -5,6 +5,85 @@ El reto de hoy consiste en seguir la trayectoria de un rayo que cae a través de
 
 ---
 
+```mermaid
+classDiagram
+    class BeamSimulator {
+        +simulateAndCountSplits() long
+    }
+
+    class Grid {
+        +getCell(int row, int col) char
+        +findStartColumn() int
+        +height() int
+    }
+
+    class RayPhysics {
+        +interact(char cellContent) InteractionResult
+    }
+
+    class InteractionResult {
+        +nextColumnOffsets() List~Integer~
+        +isSplit() boolean
+        +passThrough() InteractionResult
+        +split() InteractionResult
+    }
+
+    class Main {
+        +main(String[] args) void
+    }
+
+    class InteractionRule {
+        +getNextOffsets(char cellContent) List~Integer~
+    }
+
+    class PathCalculatorService {
+        +calculateTotalPaths(Grid grid) long
+    }
+
+    class SimulationState {
+        +initial(int startCol) SimulationState
+        +totalPaths() long
+        +evolve(Grid grid, int currentRowIndex, InteractionRule physics) SimulationState
+    }
+
+    class MainB {
+        +main(String[] args) void
+    }
+
+    namespace Package_a {
+        class Main
+        class BeamSimulator
+        class Grid
+        class RayPhysics
+        class InteractionResult
+    }
+
+    namespace Package_b {
+        class MainB
+        class InteractionRule
+        class PathCalculatorService
+        class SimulationState
+    }
+
+    Main ..> BeamSimulator : uses
+    Main ..> Grid : uses
+    Main ..> RayPhysics : uses
+    BeamSimulator --> Grid : uses
+    BeamSimulator --> RayPhysics : uses
+    RayPhysics --> InteractionResult : produces
+
+    MainB ..> PathCalculatorService : uses
+    MainB ..> Grid : uses
+    MainB ..> InteractionRule : uses
+    PathCalculatorService --> SimulationState : uses
+    PathCalculatorService --> InteractionRule : uses
+    PathCalculatorService --> Grid : uses
+    SimulationState --> Grid : takes
+    SimulationState --> InteractionRule : takes
+```
+
+---
+
 ## 2. El Escenario: `Grid`
 La clase `Grid` actúa como el fundamento del sistema, gestionando el mapa de forma inmutable.
 

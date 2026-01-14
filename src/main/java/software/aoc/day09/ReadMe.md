@@ -1,46 +1,98 @@
 # Advent of Code - Día 09: Geometría Computacional y Optimización Espacial
 
-## Mapa de la Solución (UML)
+
+Este proyecto implementa soluciones para problemas geométricos, aplicando principios de diseño que garantizan la flexibilidad del algoritmo y la eficiencia en el manejo de coordenadas.
+
+---
+
+## Class Diagram
 
 ```mermaid
 classDiagram
+    class Main {
+        +main(String[] args) void
+    }
+
     class Point {
-        +int x
-        +int y
-        +static parse(line)
+        +x() int
+        +y() int
+        +parse(String line) Point
     }
+
     class PointParser {
-        +parse(lines) List~Point~
+        +parse(List~String~ lines) List~Point~
     }
+
     class GeometryService {
-        +solve(points)
+        +calculateLargestRectangle(List~Point~ points) long
     }
+
     class AreaStrategy {
         <<interface>>
-        +findBestRectangle(points)
+        +findMaxArea(List~Point~ points) long
     }
-    class RayCaster {
-        +isPointInside(x, y, vertices) bool
+
+    class BruteForcePairsStrategy {
+        +findMaxArea(List~Point~ points) long
     }
+
+    class BoundingBox {
+        +p1() Point
+        +p2() Point
+        +calculateInclusiveArea() long
+    }
+
+    class MainB {
+        +main(String[] args) void
+    }
+
     class CompressedGrid {
-        -int[] xCoords
-        -int[] yCoords
-        -boolean[][] solidCells
-        +fullyCovers(box) bool
+        +fullyCovers(BoundingBox box) boolean
     }
+
+    class RayCaster {
+        +isPointInside(double x, double y, List~Point~ vertices) boolean
+    }
+
     class ConstrainedSolver {
-        +solve(vertices) BoundingBox
+        +solve(List~Point~ vertices) BoundingBox
     }
 
-    PointParser ..> Point : Creates
-    GeometryService --> AreaStrategy
-    ConstrainedSolver --> RayCaster : Uses
-    ConstrainedSolver --> CompressedGrid : Uses
-    CompressedGrid --> RayCaster : Uses (Pre-calc)
+    namespace Package_a {
+        class Main
+        class Point
+        class PointParser
+        class GeometryService
+        class AreaStrategy
+        class BruteForcePairsStrategy
+        class BoundingBox
+    }
+
+    namespace Package_b {
+        class MainB
+        class ConstrainedSolver
+        class CompressedGrid
+        class RayCaster
+    }
+
+    Main ..> PointParser : uses
+    Main ..> GeometryService : uses
+    Main ..> BruteForcePairsStrategy : uses
+    PointParser ..> Point : creates
+    GeometryService --> AreaStrategy : uses
+    BruteForcePairsStrategy ..|> AreaStrategy : implements
+    BruteForcePairsStrategy ..> BoundingBox : creates
+    BoundingBox --> Point : holds
+
+    MainB ..> PointParser : uses
+    MainB ..> ConstrainedSolver : uses
+    ConstrainedSolver ..> CompressedGrid : creates
+    ConstrainedSolver ..> RayCaster : creates
+    ConstrainedSolver ..> BoundingBox : uses
+    CompressedGrid --> RayCaster : uses
+    CompressedGrid ..> BoundingBox : checks
+    RayCaster ..> Point : uses
 ```
-
-
-Este proyecto implementa soluciones para problemas geométricos, aplicando principios de diseño que garantizan la flexibilidad del algoritmo y la eficiencia en el manejo de coordenadas.
 
 ---
 

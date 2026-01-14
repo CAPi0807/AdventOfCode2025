@@ -1,36 +1,66 @@
 # Advent of Code - Día 11: Navegación de Grafos y Memoización
 
-## Mapa de la Solución (UML)
+
+El núcleo de la solución se basa en una **Búsqueda en Profundidad (DFS) con Memoización**. Este enfoque permite explorar exhaustivamente las rutas posibles evitando la explosión combinatoria mediante el almacenamiento en caché de los resultados de sub-rutas ya calculadas.
+
+---
+
+## Class Diagram
 
 ```mermaid
 classDiagram
-    class RouteAnalysisService {
-        +solve(inputLines) long
+    class Main {
+        +main(String[] args) void
     }
-    class WaypointRouteService {
-        +solve(inputLines) long
+
+    class Graph {
+        +getNeighbors(String node) List~String~
     }
+
     class GraphParser {
-        +parse(lines) Graph
+        +parse(List~String~ lines) Graph
     }
+
     class PathCounter {
         -Map~String, Long~ memo
-        +countPaths(start, end) long
-    }
-    class Graph {
-        +getNeighbors(node) List~String~
+        +countPaths(String start, String end) long
     }
 
-    RouteAnalysisService --> GraphParser : Uses
-    RouteAnalysisService --> PathCounter : Uses
-    WaypointRouteService --> GraphParser : Uses
-    WaypointRouteService --> PathCounter : Uses
-    PathCounter --> Graph : Uses
-    GraphParser ..> Graph : Creates
+    class RouteAnalysisService {
+        +solve(List~String~ inputLines) long
+    }
+
+    class MainB {
+        +main(String[] args) void
+    }
+
+    class WaypointRouteService {
+        +solve(List~String~ inputLines) long
+    }
+
+    namespace Package_a {
+        class Main
+        class Graph
+        class GraphParser
+        class PathCounter
+        class RouteAnalysisService
+    }
+
+    namespace Package_b {
+        class MainB
+        class WaypointRouteService
+    }
+
+    Main ..> RouteAnalysisService : uses
+    RouteAnalysisService ..> GraphParser : uses
+    RouteAnalysisService --> PathCounter : uses
+    GraphParser ..> Graph : creates
+    PathCounter --> Graph : uses
+
+    MainB ..> WaypointRouteService : uses
+    WaypointRouteService ..> GraphParser : uses
+    WaypointRouteService --> PathCounter : uses
 ```
-
-## Algoritmo Principal
-El núcleo de la solución se basa en una **Búsqueda en Profundidad (DFS) con Memoización**. Este enfoque permite explorar exhaustivamente las rutas posibles evitando la explosión combinatoria mediante el almacenamiento en caché de los resultados de sub-rutas ya calculadas.
 
 ---
 
